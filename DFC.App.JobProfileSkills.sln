@@ -28,8 +28,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{45583195-3C4B-4A09-81CC-19CF0BD0322F}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		DFC.Digital.CodeAnalysis.ruleset = DFC.Digital.CodeAnalysis.ruleset
 		LICENSE = LICENSE
 		README.md = README.md
+		stylecop.json = stylecop.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{C647682A-032D-4984-A820-92DF0A80FE11}"
