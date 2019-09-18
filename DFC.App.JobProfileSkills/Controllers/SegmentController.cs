@@ -8,7 +8,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DFC.App.JobProfileOverview.Controllers
+namespace DFC.App.JobProfileSkills.Controllers
 {
     public class SegmentController : Controller
     {
@@ -111,9 +111,9 @@ namespace DFC.App.JobProfileOverview.Controllers
                 return BadRequest(ModelState);
             }
 
-            var overviewSegmentModel = await jobProfileSkillSegmentService.GetByIdAsync(createOrUpdateJobProfileSkillModel.DocumentId).ConfigureAwait(false);
+            var skillSegmentModel = await jobProfileSkillSegmentService.GetByIdAsync(createOrUpdateJobProfileSkillModel.DocumentId).ConfigureAwait(false);
 
-            if (overviewSegmentModel == null)
+            if (skillSegmentModel == null)
             {
                 var createdResponse = await jobProfileSkillSegmentService.CreateAsync(createOrUpdateJobProfileSkillModel).ConfigureAwait(false);
 
@@ -137,18 +137,18 @@ namespace DFC.App.JobProfileOverview.Controllers
         {
             logger.LogInformation($"{nameof(Delete)} has been called");
 
-            var jobProfileOverviewSegmentModel = await jobProfileSkillSegmentService.GetByIdAsync(documentId).ConfigureAwait(false);
+            var skillSegmentModel = await jobProfileSkillSegmentService.GetByIdAsync(documentId).ConfigureAwait(false);
 
-            if (jobProfileOverviewSegmentModel == null)
+            if (skillSegmentModel == null)
             {
                 logger.LogWarning($"{nameof(Document)} has returned no content for: {documentId}");
 
                 return NotFound();
             }
 
-            await jobProfileSkillSegmentService.DeleteAsync(documentId, jobProfileOverviewSegmentModel.PartitionKey).ConfigureAwait(false);
+            await jobProfileSkillSegmentService.DeleteAsync(documentId, skillSegmentModel.PartitionKey).ConfigureAwait(false);
 
-            logger.LogInformation($"{nameof(Delete)} has deleted content for: {jobProfileOverviewSegmentModel.CanonicalName}");
+            logger.LogInformation($"{nameof(Delete)} has deleted content for: {skillSegmentModel.CanonicalName}");
 
             return Ok();
         }

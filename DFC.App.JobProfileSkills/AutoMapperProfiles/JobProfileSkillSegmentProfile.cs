@@ -2,7 +2,7 @@
 using DFC.App.JobProfileSkills.Data.Models;
 using DFC.App.JobProfileSkills.ViewModels;
 
-namespace DFC.App.JobProfileOverview.AutoMapperProfiles
+namespace DFC.App.JobProfileSkills.AutoMapperProfiles
 {
     public class JobProfileSkillSegmentProfile : Profile
     {
