@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
+namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
 {
     public class BodyDataViewModelTests : TestBase
     {

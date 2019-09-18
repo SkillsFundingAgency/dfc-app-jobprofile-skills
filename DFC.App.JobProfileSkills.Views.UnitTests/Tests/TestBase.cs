@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Net;
 
-namespace DFC.App.JobProfileOverview.Views.UnitTests.Tests
+namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
 {
     public class TestBase
     {
