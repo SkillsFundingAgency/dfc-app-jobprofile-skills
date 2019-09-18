@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4">
@@ -21,6 +22,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DFC.App.JobProfileSkills.Data\DFC.App.JobProfileSkills.Data.csproj" />
+    <ProjectReference Include="..\DFC.App.JobProfileSkills.DraftSegmentService\DFC.App.JobProfileSkills.DraftSegmentService.csproj" />
+    <ProjectReference Include="..\DFC.App.JobProfileSkills.Repository.CosmosDb\DFC.App.JobProfileSkills.Repository.CosmosDb.csproj" />
+    <ProjectReference Include="..\DFC.App.JobProfileSkills.Repository.SitefinityApi\DFC.App.JobProfileSkills.Repository.SitefinityApi.csproj" />
+    <ProjectReference Include="..\DFC.App.JobProfileSkills.SegmentService\DFC.App.JobProfileSkills.SegmentService.csproj" />
   </ItemGroup>
 
 </Project>
