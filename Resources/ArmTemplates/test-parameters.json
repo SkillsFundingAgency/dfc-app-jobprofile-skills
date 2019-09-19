@@ -11,6 +11,15 @@
         "appSharedStorageAccountName": {
             "value": "dfcdevappsharedstr"
         },
+        "cosmosDBName": {
+            "value": "dfc-dev-app-sharedresources-cdb"
+        },
+        "cosmosDbKey": {
+            "value": "not-a-real-key"
+        },
+        "cosmosDbResourceGroup": {
+            "value": "dfc-dev-app-sharedresources-rg"
+        },
         "sharedAppServicePlanName": {
             "value": "dfc-dev-app-shared-asp"
         },
