@@ -20,6 +20,15 @@
         "aspTier": {
             "value": "__aspTier__"
         },
+        "cosmosDBName": {
+            "value": "__appSharedCosmosDBName__"
+        },
+        "cosmosDbKey": {
+            "value": "__appSharedCosmosPrimaryKey__"
+        },
+        "cosmosDbResourceGroup": {
+            "value": "__appSharedResourceGroup__"
+        },
         "sharedAppServicePlanName": {
             "value": "__sharedAppServicePlanName__"
         },
