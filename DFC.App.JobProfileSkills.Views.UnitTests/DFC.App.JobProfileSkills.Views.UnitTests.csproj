@@ -33,10 +33,4 @@
     <ProjectReference Include="..\DFC.App.JobProfileSkills.Data\DFC.App.JobProfileSkills.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
