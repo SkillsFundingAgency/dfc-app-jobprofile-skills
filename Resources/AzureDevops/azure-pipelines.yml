@@ -45,6 +45,7 @@ jobs:
       SolutionBaseName: $(SolutionBaseName).DraftSegmentService
       BuildPlatform: $(BuildPlatform)
       BuildConfiguration: $(BuildConfiguration)
+      DotNetCoreVersion: 2.2.402
       TestSuffix: UnitTests
   # Test DFC.App.JobProfileSkills.SegmentService (an artifact will be built but isn't consumed in the release) 
   - template: AzureDevOpsTemplates/Build/dfc-dotnetcore-build.yml@dfc-devops
@@ -52,4 +53,5 @@ jobs:
       SolutionBaseName: $(SolutionBaseName).SegmentService
       BuildPlatform: $(BuildPlatform)
       BuildConfiguration: $(BuildConfiguration)
+      DotNetCoreVersion: 2.2.402
       TestSuffix: UnitTests      
