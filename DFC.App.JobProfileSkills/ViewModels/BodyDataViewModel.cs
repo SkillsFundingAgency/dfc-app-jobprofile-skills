@@ -5,6 +5,12 @@ namespace DFC.App.JobProfileSkills.ViewModels
 {
     public class BodyDataViewModel
     {
+        public BodyDataViewModel()
+        {
+            Skills = new List<BodyDataSkillSegmentSkillViewModel>();
+            Restrictions = new List<string>();
+        }
+
         public DateTime LastReviewed { get; set; }
 
         public string Summary { get; set; }
@@ -18,5 +24,5 @@ namespace DFC.App.JobProfileSkills.ViewModels
         public IEnumerable<string> Restrictions { get; set; }
 
         public string OtherRequirements { get; set; }
-    }
+   }
 }

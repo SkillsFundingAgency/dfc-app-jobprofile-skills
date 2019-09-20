@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DFC.App.JobProfileSkills.Data\DFC.App.JobProfileSkills.Data.csproj" />
+    <ProjectReference Include="..\DFC.App.JobProfileSkills\DFC.App.JobProfileSkills.csproj" />
   </ItemGroup>
 
 </Project>
