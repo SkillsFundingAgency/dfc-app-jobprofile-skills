@@ -23,6 +23,7 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Services
                 TemplateManager = CreateTemplateManager(),
                 BaseTemplateType = typeof(HtmlSupportTemplateBase<>),
             };
+            razorConfig.Namespaces.Add("DFC.App.JobProfileSkills.ViewModels");
 
             using (var razorEngine = RazorEngineService.Create(razorConfig))
             {

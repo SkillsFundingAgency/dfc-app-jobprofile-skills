@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DFC.App.JobProfileSkills.Views.UnitTests.Services;
+using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 
@@ -25,6 +27,13 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
         protected string HtmlEncode(string value)
         {
             return WebUtility.HtmlEncode(value);
+        }
+
+        protected string RenderView(object model, string viewName)
+        {
+            var viewBag = new Dictionary<string, object>();
+            var viewRenderer = new RazorEngineRenderer(ViewRootPath);
+            return viewRenderer.Render(viewName, model, viewBag);
         }
     }
 }

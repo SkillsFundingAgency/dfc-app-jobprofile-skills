@@ -1,1 +1,8 @@
-﻿@Model.DigitalSkill
+﻿@model BodyDataViewModel
+<section class="job-profile-subsection">
+    <h2 class="heading-large">What it takes</h2>
+
+    <partial name="BodyDataSkills" model="@Model" />
+    <partial name="BodyDataRestrictions" model="@Model" />
+
+</section>
