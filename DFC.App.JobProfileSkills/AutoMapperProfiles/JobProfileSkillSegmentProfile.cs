@@ -8,6 +8,8 @@ namespace DFC.App.JobProfileSkills.AutoMapperProfiles
     {
         public JobProfileSkillSegmentProfile()
         {
+            CreateMap<Data.Models.GenericListContent, ViewModels.GenericListContent>();
+
             CreateMap<JobProfileSkillSegmentModel, IndexDocumentViewModel>();
 
             CreateMap<JobProfileSkillSegmentModel, DocumentViewModel>();

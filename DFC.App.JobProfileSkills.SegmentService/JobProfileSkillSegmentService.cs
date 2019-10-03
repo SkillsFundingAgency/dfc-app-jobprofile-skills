@@ -1,5 +1,6 @@
 ﻿using DFC.App.JobProfileSkills.Data.Contracts;
 using DFC.App.JobProfileSkills.Data.Models;
+using DFC.App.JobProfileSkills.Repository.CosmosDb;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -41,7 +42,7 @@ namespace DFC.App.JobProfileSkills.SegmentService
             return await repository.GetAsync(d => d.CanonicalName.ToLower() == canonicalName.ToLowerInvariant()).ConfigureAwait(false);
         }
 
-        public async Task<JobProfileSkillSegmentModel> CreateAsync(JobProfileSkillSegmentModel skillSegmentModel)
+        public async Task<UpsertJobProfileSkillsModelResponse> UpsertAsync(JobProfileSkillSegmentModel skillSegmentModel)
         {
             if (skillSegmentModel == null)
             {
@@ -53,35 +54,18 @@ namespace DFC.App.JobProfileSkills.SegmentService
                 skillSegmentModel.Data = new JobProfileSkillSegmentDataModel();
             }
 
-            var result = await repository.CreateAsync(skillSegmentModel).ConfigureAwait(false);
+            var result = await repository.UpsertAsync(skillSegmentModel).ConfigureAwait(false);
 
-            return result == HttpStatusCode.Created
-                ? await GetByIdAsync(skillSegmentModel.DocumentId).ConfigureAwait(false)
-                : null;
+            return new UpsertJobProfileSkillsModelResponse
+            {
+                JobProfileSkillSegmentModel = skillSegmentModel,
+                ResponseStatusCode = result,
+            };
         }
 
-        public async Task<JobProfileSkillSegmentModel> ReplaceAsync(JobProfileSkillSegmentModel skillSegmentModel)
+        public async Task<bool> DeleteAsync(Guid documentId)
         {
-            if (skillSegmentModel == null)
-            {
-                throw new ArgumentNullException(nameof(skillSegmentModel));
-            }
-
-            if (skillSegmentModel.Data == null)
-            {
-                skillSegmentModel.Data = new JobProfileSkillSegmentDataModel();
-            }
-
-            var result = await repository.UpdateAsync(skillSegmentModel.DocumentId, skillSegmentModel).ConfigureAwait(false);
-
-            return result == HttpStatusCode.OK
-                ? await GetByIdAsync(skillSegmentModel.DocumentId).ConfigureAwait(false)
-                : null;
-        }
-
-        public async Task<bool> DeleteAsync(Guid documentId, int partitionKeyValue)
-        {
-            var result = await repository.DeleteAsync(documentId, partitionKeyValue).ConfigureAwait(false);
+            var result = await repository.DeleteAsync(documentId).ConfigureAwait(false);
             return result == HttpStatusCode.NoContent;
         }
     }

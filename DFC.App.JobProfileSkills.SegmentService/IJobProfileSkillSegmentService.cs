@@ -15,10 +15,8 @@ namespace DFC.App.JobProfileSkills.Data.Contracts
 
         Task<JobProfileSkillSegmentModel> GetByNameAsync(string canonicalName, bool isDraft = false);
 
-        Task<JobProfileSkillSegmentModel> CreateAsync(JobProfileSkillSegmentModel skillSegmentModel);
+        Task<UpsertJobProfileSkillsModelResponse> UpsertAsync(JobProfileSkillSegmentModel skillSegmentModel);
 
-        Task<JobProfileSkillSegmentModel> ReplaceAsync(JobProfileSkillSegmentModel skillSegmentModel);
-
-        Task<bool> DeleteAsync(Guid documentId, int partitionKeyValue);
+        Task<bool> DeleteAsync(Guid documentId);
     }
 }

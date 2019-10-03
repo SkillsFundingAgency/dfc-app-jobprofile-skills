@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DFC.App.JobProfileSkills.Data.Models
 {
     public class JobProfileSkillSegmentDataModel
     {
-        public JobProfileSkillSegmentDataModel()
-        {
-            Skills = new List<JobProfileSkillSegmentSkillDataModel>();
-            Restrictions = new List<string>();
-        }
-
         public DateTime LastReviewed { get; set; }
 
         public string Summary { get; set; }
@@ -21,7 +16,7 @@ namespace DFC.App.JobProfileSkills.Data.Models
 
         public string RestrictionsSummary { get; set; }
 
-        public IEnumerable<string> Restrictions { get; set; }
+        public IEnumerable<GenericListContent> Restrictions { get; set; }
 
         public string OtherRequirements { get; set; }
     }

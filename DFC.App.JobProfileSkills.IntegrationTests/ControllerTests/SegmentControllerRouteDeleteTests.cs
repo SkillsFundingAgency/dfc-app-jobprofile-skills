@@ -1,7 +1,10 @@
-﻿using DFC.App.JobProfileSkills.IntegrationTests.Data;
+﻿using DFC.App.JobProfileSkills.Data.Models;
+using DFC.App.JobProfileSkills.IntegrationTests.Data;
 using FluentAssertions;
 using System;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -9,20 +12,20 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.ControllerTests
 {
     public class SegmentControllerRouteDeleteTests : IClassFixture<CustomWebApplicationFactory<Startup>>, IClassFixture<DataSeeding>
     {
+        private const string SegmentUrl = "/segment";
+
         private readonly CustomWebApplicationFactory<Startup> factory;
-        private readonly DataSeeding dataSeeding;
 
         public SegmentControllerRouteDeleteTests(CustomWebApplicationFactory<Startup> factory, DataSeeding dataSeeding)
         {
             this.factory = factory;
-            this.dataSeeding = dataSeeding;
 
             if (dataSeeding == null)
             {
                 throw new ArgumentNullException(nameof(dataSeeding));
             }
 
-            dataSeeding.AddData(factory).Wait();
+            dataSeeding?.AddData(factory).GetAwaiter().GetResult();
         }
 
         [Fact]
@@ -45,16 +48,29 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.ControllerTests
         public async Task ExistingSegmentReturnsOk()
         {
             // Arrange
-            var uri = new Uri($"/segment/{dataSeeding.Article1Id}", UriKind.Relative);
+            var documentId = Guid.NewGuid();
+
+            var deleteUri = new Uri($"{SegmentUrl}/{documentId}", UriKind.Relative);
+
+            var skillSegmentModel = new JobProfileSkillSegmentModel()
+            {
+                DocumentId = documentId,
+                CanonicalName = documentId.ToString().ToLowerInvariant(),
+                SocLevelTwo = "12PostSoc",
+                Data = new JobProfileSkillSegmentDataModel(),
+            };
+
             var client = factory.CreateClient();
 
             client.DefaultRequestHeaders.Accept.Clear();
 
+            await client.PostAsync(SegmentUrl, skillSegmentModel, new JsonMediaTypeFormatter()).ConfigureAwait(false);
+
             // Act
-            var response = await client.DeleteAsync(uri).ConfigureAwait(false);
+            var response = await client.DeleteAsync(deleteUri).ConfigureAwait(false);
 
             // Assert
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }
 }
