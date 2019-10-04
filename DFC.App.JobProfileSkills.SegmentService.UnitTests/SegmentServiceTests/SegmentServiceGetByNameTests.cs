@@ -1,5 +1,6 @@
 ﻿using DFC.App.JobProfileSkills.Data.Contracts;
 using DFC.App.JobProfileSkills.Data.Models;
+using DFC.App.JobProfileSkills.Repository.CosmosDb;
 using FakeItEasy;
 using System;
 using System.Linq.Expressions;
@@ -23,7 +24,6 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
         public async Task GetByNameReturnsSuccess()
         {
             // arrange
-            var documentId = Guid.NewGuid();
             var expectedResult = A.Fake<JobProfileSkillSegmentModel>();
 
             A.CallTo(() => repository.GetAsync(A<Expression<Func<JobProfileSkillSegmentModel, bool>>>.Ignored)).Returns(expectedResult);
@@ -33,7 +33,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
 
             // assert
             A.CallTo(() => repository.GetAsync(A<Expression<Func<JobProfileSkillSegmentModel, bool>>>.Ignored)).MustHaveHappenedOnceExactly();
-            A.Equals(result, expectedResult);
+            Assert.Equal(expectedResult, result);
         }
 
         [Fact]
@@ -52,16 +52,14 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
         public async Task GetByNameReturnsNullWhenMissingInRepository()
         {
             // arrange
-            JobProfileSkillSegmentModel expectedResult = null;
-
-            A.CallTo(() => repository.GetAsync(A<Expression<Func<JobProfileSkillSegmentModel, bool>>>.Ignored)).Returns(expectedResult);
+            A.CallTo(() => repository.GetAsync(A<Expression<Func<JobProfileSkillSegmentModel, bool>>>.Ignored)).Returns((JobProfileSkillSegmentModel)null);
 
             // act
             var result = await jobProfileSkillSegmentService.GetByNameAsync("article-name").ConfigureAwait(false);
 
             // assert
             A.CallTo(() => repository.GetAsync(A<Expression<Func<JobProfileSkillSegmentModel, bool>>>.Ignored)).MustHaveHappenedOnceExactly();
-            A.Equals(result, expectedResult);
+            Assert.Null(result);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Services
             using (var razorEngine = RazorEngineService.Create(razorConfig))
             {
                 var dynamicViewBag = new DynamicViewBag(viewBag);
-                result = razorEngine.RunCompile(templateValue, model.GetType(), model, dynamicViewBag);
+                result = razorEngine.RunCompile(templateValue, model?.GetType(), model, dynamicViewBag);
             }
 
             return result;

@@ -1,7 +1,7 @@
 ﻿@{
-    var restrictions = Model.Restrictions as List<string>;
+    var restrictions = Model.Restrictions as List<GenericListContent>;
 }
-@if (restrictions.Any() || !string.IsNullOrWhiteSpace(Model.OtherRequirements))
+@if (Model.HasRestrictions || !string.IsNullOrWhiteSpace(Model.OtherRequirements))
 {
     <section class="job-profile-subsection" id="restrictions">
         <h3>Restrictions and Requirements</h3>
@@ -12,7 +12,7 @@
                 <ul>
                     @foreach (var restriction in restrictions)
                     {
-                        <li>@Html.Raw(restriction)</li>
+                        <li>@Html.Raw(restriction.Description)</li>
                     }
                 </ul>
             }

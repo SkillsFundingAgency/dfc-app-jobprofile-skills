@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DFC.App.JobProfileSkills.ViewModels
 {
@@ -8,7 +9,6 @@ namespace DFC.App.JobProfileSkills.ViewModels
         public BodyDataViewModel()
         {
             Skills = new List<BodyDataSkillSegmentSkillViewModel>();
-            Restrictions = new List<string>();
         }
 
         public DateTime LastReviewed { get; set; }
@@ -21,8 +21,10 @@ namespace DFC.App.JobProfileSkills.ViewModels
 
         public string RestrictionsSummary { get; set; }
 
-        public IEnumerable<string> Restrictions { get; set; }
+        public IEnumerable<GenericListContent> Restrictions { get; set; }
 
         public string OtherRequirements { get; set; }
-   }
+
+        public bool HasRestrictions => Restrictions != null && Restrictions.Any();
+    }
 }

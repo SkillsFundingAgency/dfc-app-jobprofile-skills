@@ -1,7 +1,7 @@
 ﻿using DFC.App.JobProfileSkills.Data.Models;
 using System.Threading.Tasks;
 
-namespace DFC.App.JobProfileSkills.Data.Contracts
+namespace DFC.App.JobProfileSkills.DraftSegmentService
 {
     public interface IDraftJobProfileSkillSegmentService
     {

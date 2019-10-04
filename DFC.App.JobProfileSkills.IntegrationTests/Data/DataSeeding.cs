@@ -20,8 +20,7 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.Data
             Article1Name = Article1Id.ToString();
             Article2Name = Article2Id.ToString();
             Article3Name = Article3Id.ToString();
-
-            Created = DateTime.UtcNow;
+            Article2SocCode = "23456";
         }
 
         public Guid Article1Id { get; private set; }
@@ -36,7 +35,7 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.Data
 
         public string Article3Name { get; private set; }
 
-        public DateTime Created { get; private set; }
+        public string Article2SocCode { get; private set; }
 
         public async Task AddData(CustomWebApplicationFactory<Startup> factory)
         {
@@ -45,7 +44,7 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.Data
 
             var client = factory?.CreateClient();
 
-            client.DefaultRequestHeaders.Accept.Clear();
+            client?.DefaultRequestHeaders.Accept.Clear();
 
             foreach (var model in models)
             {
@@ -59,7 +58,7 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.Data
 
             var client = factory?.CreateClient();
 
-            client.DefaultRequestHeaders.Accept.Clear();
+            client?.DefaultRequestHeaders.Accept.Clear();
 
             foreach (var model in models)
             {
@@ -74,14 +73,17 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.Data
             {
                 new JobProfileSkillSegmentModel()
                 {
-                    Created = Created,
                     DocumentId = Article1Id,
                     CanonicalName = Article1Name,
+                    SocLevelTwo = "12345",
                     Data = new JobProfileSkillSegmentDataModel
                     {
                         DigitalSkill = "DigitalSkill1",
-                        LastReviewed = Created.Subtract(TimeSpan.FromDays(1)),
-                        Restrictions = new List<string>() { "Restrictions1a", "Restrictions1b" },
+                        Restrictions = new List<GenericListContent>
+                        {
+                            new GenericListContent{ Id = "1", Description = "Restrictions1a", Rank = 1},
+                            new GenericListContent{ Id = "2", Description = "Restrictions1b", Rank = 2},
+                        },
                         OtherRequirements = "OtherRequirements1",
                         RestrictionsSummary = "RestrictionsSummary1",
                         Skills = new List<JobProfileSkillSegmentSkillDataModel>()
@@ -106,14 +108,17 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.Data
                 },
                 new JobProfileSkillSegmentModel()
                 {
-                    Created = Created,
                     DocumentId = Article2Id,
                     CanonicalName = Article2Name,
+                    SocLevelTwo = Article2SocCode,
                     Data = new JobProfileSkillSegmentDataModel
                     {
                         DigitalSkill = "DigitalSkill2",
-                        LastReviewed = Created.Subtract(TimeSpan.FromDays(1)),
-                        Restrictions = new List<string>() { "Restrictions2a", "Restrictions2b" },
+                        Restrictions = new List<GenericListContent>
+                        {
+                            new GenericListContent{ Id = "1", Description = "Restrictions2a", Rank = 1},
+                            new GenericListContent{ Id = "2", Description = "Restrictions2b", Rank = 2},
+                        },
                         OtherRequirements = "OtherRequirements2",
                         RestrictionsSummary = "RestrictionsSummary2",
                         Skills = new List<JobProfileSkillSegmentSkillDataModel>()
@@ -138,14 +143,17 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.Data
                 },
                 new JobProfileSkillSegmentModel()
                 {
-                    Created = Created,
                     DocumentId = Article3Id,
                     CanonicalName = Article3Name,
+                    SocLevelTwo = "34567",
                     Data = new JobProfileSkillSegmentDataModel
                     {
                         DigitalSkill = "DigitalSkill3",
-                        LastReviewed = Created.Subtract(TimeSpan.FromDays(1)),
-                        Restrictions = new List<string>() { "Restrictions3a", "Restrictions3b" },
+                        Restrictions = new List<GenericListContent>
+                        {
+                            new GenericListContent{ Id = "1", Description = "Restrictions3a", Rank = 1},
+                            new GenericListContent{ Id = "2", Description = "Restrictions3b", Rank = 2},
+                        },
                         OtherRequirements = "OtherRequirements3",
                         RestrictionsSummary = "RestrictionsSummary3",
                         Skills = new List<JobProfileSkillSegmentSkillDataModel>()

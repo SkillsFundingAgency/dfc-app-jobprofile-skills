@@ -1,4 +1,3 @@
-using DFC.App.JobProfileSkills.Data.Models;
 using DFC.App.JobProfileSkills.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -17,10 +16,10 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
             var model = new BodyDataViewModel()
             {
                 OtherRequirements = "OtherRequirements1",
-                Restrictions = new List<string>()
+                Restrictions = new List<ViewModels.GenericListContent>
                 {
-                    "Restrictions1",
-                    "Restrictions2",
+                    new ViewModels.GenericListContent{ Id = "1", Description = "Restrictions1", Rank = 1},
+                    new ViewModels.GenericListContent{ Id = "2", Description = "Restrictions2", Rank = 2},
                 },
             };
 
@@ -31,7 +30,9 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
             Assert.Contains(model.OtherRequirements, viewRenderResponse, StringComparison.OrdinalIgnoreCase);
             foreach (var restriction in model.Restrictions)
             {
-                Assert.Contains(restriction, viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+                var restrictionDesc = restriction?.Description;
+
+                Assert.Contains(restrictionDesc, viewRenderResponse, StringComparison.OrdinalIgnoreCase);
             }
         }
 
@@ -39,7 +40,7 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
         public void ContainsNoContentIfNoRestrictions()
         {
             //Arrange
-            var model = new JobProfileSkillSegmentDataModel();
+            var model = new BodyDataViewModel();
 
             //Act
             var viewRenderResponse = RenderView(model, ViewName);

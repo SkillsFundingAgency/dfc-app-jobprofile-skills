@@ -10,16 +10,12 @@ using Xunit;
 
 namespace DFC.App.JobProfileSkills.IntegrationTests.ControllerTests
 {
-    public class SegmentControllerRoutePostTests :
-        IClassFixture<CustomWebApplicationFactory<Startup>>,
-        IClassFixture<DataSeeding>
+    public class SegmentControllerRoutePostTests : IClassFixture<CustomWebApplicationFactory<Startup>>, IClassFixture<DataSeeding>
     {
         private readonly CustomWebApplicationFactory<Startup> factory;
         private readonly DataSeeding dataSeeding;
 
-        public SegmentControllerRoutePostTests(
-            CustomWebApplicationFactory<Startup> factory,
-            DataSeeding dataSeeding)
+        public SegmentControllerRoutePostTests(CustomWebApplicationFactory<Startup> factory, DataSeeding dataSeeding)
         {
             this.factory = factory;
             this.dataSeeding = dataSeeding;
@@ -29,7 +25,7 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.ControllerTests
                 throw new ArgumentNullException(nameof(dataSeeding));
             }
 
-            dataSeeding.AddData(factory).Wait();
+            dataSeeding.AddData(factory).GetAwaiter().GetResult();
         }
 
         [Fact]
@@ -42,6 +38,7 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.ControllerTests
             {
                 DocumentId = documentId,
                 CanonicalName = documentId.ToString().ToLowerInvariant(),
+                SocLevelTwo = "12PostSoc",
                 Data = new JobProfileSkillSegmentDataModel(),
             };
             var client = factory.CreateClient();
@@ -67,8 +64,8 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.ControllerTests
             var skillSegmentModel = new JobProfileSkillSegmentModel()
             {
                 DocumentId = dataSeeding.Article2Id,
-                Created = dataSeeding.Created,
                 CanonicalName = "article2_modified",
+                SocLevelTwo = dataSeeding.Article2SocCode,
                 Data = new JobProfileSkillSegmentDataModel(),
             };
             var client = factory.CreateClient();

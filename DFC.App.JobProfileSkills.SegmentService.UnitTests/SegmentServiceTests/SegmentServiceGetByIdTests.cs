@@ -1,5 +1,6 @@
 ﻿using DFC.App.JobProfileSkills.Data.Contracts;
 using DFC.App.JobProfileSkills.Data.Models;
+using DFC.App.JobProfileSkills.Repository.CosmosDb;
 using FakeItEasy;
 using System;
 using System.Linq.Expressions;
