@@ -5,25 +5,25 @@ VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills", "DFC.App.JobProfileSkills\DFC.App.JobProfileSkills.csproj", "{8395B35A-F44B-43D5-BD28-C2D60FDC191B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileSkills.Data", "DFC.App.JobProfileSkills.Data\DFC.App.JobProfileSkills.Data.csproj", "{9B80C9F6-87FC-4AC5-B827-F537507709DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.Data", "DFC.App.JobProfileSkills.Data\DFC.App.JobProfileSkills.Data.csproj", "{9B80C9F6-87FC-4AC5-B827-F537507709DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileSkills.DraftSegmentService", "DFC.App.JobProfileSkills.DraftSegmentService\DFC.App.JobProfileSkills.DraftSegmentService.csproj", "{0A0B0D52-84F0-4964-9DDF-3B1BEAE0A13C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.DraftSegmentService", "DFC.App.JobProfileSkills.DraftSegmentService\DFC.App.JobProfileSkills.DraftSegmentService.csproj", "{0A0B0D52-84F0-4964-9DDF-3B1BEAE0A13C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileSkills.DraftSegmentService.UnitTests", "DFC.App.JobProfileSkills.DraftSegmentService.UnitTests\DFC.App.JobProfileSkills.DraftSegmentService.UnitTests.csproj", "{E2041B5C-7D29-42CB-AE8B-5DAD0BAD0DB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.DraftSegmentService.UnitTests", "DFC.App.JobProfileSkills.DraftSegmentService.UnitTests\DFC.App.JobProfileSkills.DraftSegmentService.UnitTests.csproj", "{E2041B5C-7D29-42CB-AE8B-5DAD0BAD0DB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileSkills.IntegrationTests", "DFC.App.JobProfileSkills.IntegrationTests\DFC.App.JobProfileSkills.IntegrationTests.csproj", "{72E41B99-3885-498A-AC55-E75F07D07248}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.IntegrationTests", "DFC.App.JobProfileSkills.IntegrationTests\DFC.App.JobProfileSkills.IntegrationTests.csproj", "{72E41B99-3885-498A-AC55-E75F07D07248}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileSkills.Repository.CosmosDb", "DFC.App.JobProfileSkills.Repository.CosmosDb\DFC.App.JobProfileSkills.Repository.CosmosDb.csproj", "{FDD2A7C9-790E-4846-BB1B-64784133296D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.Repository.CosmosDb", "DFC.App.JobProfileSkills.Repository.CosmosDb\DFC.App.JobProfileSkills.Repository.CosmosDb.csproj", "{FDD2A7C9-790E-4846-BB1B-64784133296D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileSkills.Repository.SitefinityApi", "DFC.App.JobProfileSkills.Repository.SitefinityApi\DFC.App.JobProfileSkills.Repository.SitefinityApi.csproj", "{3D8D644C-5B32-485E-8246-40342ED77FFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.Repository.SitefinityApi", "DFC.App.JobProfileSkills.Repository.SitefinityApi\DFC.App.JobProfileSkills.Repository.SitefinityApi.csproj", "{3D8D644C-5B32-485E-8246-40342ED77FFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileSkills.SegmentService", "DFC.App.JobProfileSkills.SegmentService\DFC.App.JobProfileSkills.SegmentService.csproj", "{D7BFC24A-E4C8-4511-A3A3-366F1AE39BD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.SegmentService", "DFC.App.JobProfileSkills.SegmentService\DFC.App.JobProfileSkills.SegmentService.csproj", "{D7BFC24A-E4C8-4511-A3A3-366F1AE39BD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileSkills.SegmentService.UnitTests", "DFC.App.JobProfileSkills.SegmentService.UnitTests\DFC.App.JobProfileSkills.SegmentService.UnitTests.csproj", "{5D8EB588-6334-4790-BA1D-99C6D967303E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.SegmentService.UnitTests", "DFC.App.JobProfileSkills.SegmentService.UnitTests\DFC.App.JobProfileSkills.SegmentService.UnitTests.csproj", "{5D8EB588-6334-4790-BA1D-99C6D967303E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileSkills.UnitTests", "DFC.App.JobProfileSkills.UnitTests\DFC.App.JobProfileSkills.UnitTests.csproj", "{BB81A393-5CA8-42E2-805F-AB31BF05856B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.UnitTests", "DFC.App.JobProfileSkills.UnitTests\DFC.App.JobProfileSkills.UnitTests.csproj", "{BB81A393-5CA8-42E2-805F-AB31BF05856B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileSkills.Views.UnitTests", "DFC.App.JobProfileSkills.Views.UnitTests\DFC.App.JobProfileSkills.Views.UnitTests.csproj", "{9FA10E1B-F675-4010-9CB1-CBB6A224B754}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.Views.UnitTests", "DFC.App.JobProfileSkills.Views.UnitTests\DFC.App.JobProfileSkills.Views.UnitTests.csproj", "{9FA10E1B-F675-4010-9CB1-CBB6A224B754}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{45583195-3C4B-4A09-81CC-19CF0BD0322F}"
 	ProjectSection(SolutionItems) = preProject
@@ -53,6 +53,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{C8D27B11-E865-4F95-AB6B-9702DE81C621}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{311410C6-EA51-4EC7-9EAF-5FE9781F1BA2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Functions", "Functions", "{FDE763BA-8ABB-4B51-8086-D75F3CBAAE18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfilesSkills.MessageFunctionApp", "DFC.App.JobProfilesSkills.MessageFunctionApp\DFC.App.JobProfilesSkills.MessageFunctionApp.csproj", "{62EE848F-6F68-4EBE-9133-60E1D6D7F910}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -104,6 +108,10 @@ Global
 		{9FA10E1B-F675-4010-9CB1-CBB6A224B754}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FA10E1B-F675-4010-9CB1-CBB6A224B754}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FA10E1B-F675-4010-9CB1-CBB6A224B754}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62EE848F-6F68-4EBE-9133-60E1D6D7F910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62EE848F-6F68-4EBE-9133-60E1D6D7F910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62EE848F-6F68-4EBE-9133-60E1D6D7F910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62EE848F-6F68-4EBE-9133-60E1D6D7F910}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -125,6 +133,7 @@ Global
 		{681BDE1E-B65A-4633-8C60-FA08ED1B2AFB} = {06BDDD2C-26B9-4506-9B05-1B2B8B584A5B}
 		{C8D27B11-E865-4F95-AB6B-9702DE81C621} = {06BDDD2C-26B9-4506-9B05-1B2B8B584A5B}
 		{311410C6-EA51-4EC7-9EAF-5FE9781F1BA2} = {06BDDD2C-26B9-4506-9B05-1B2B8B584A5B}
+		{62EE848F-6F68-4EBE-9133-60E1D6D7F910} = {FDE763BA-8ABB-4B51-8086-D75F3CBAAE18}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E28ABB6D-5D57-4455-A0E5-E72E77B03DC5}
