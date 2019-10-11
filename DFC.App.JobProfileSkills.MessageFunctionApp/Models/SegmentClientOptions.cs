@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DFC.App.JobProfilesSkills.MessageFunctionApp.Models
+namespace DFC.App.JobProfileSkills.MessageFunctionApp.Models
 {
     public class SegmentClientOptions
     {

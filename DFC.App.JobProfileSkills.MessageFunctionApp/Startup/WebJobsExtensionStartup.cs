@@ -1,4 +1,5 @@
-﻿using DFC.App.JobProfilesSkills.MessageFunctionApp.Models;
+﻿using DFC.App.JobProfileSkills.MessageFunctionApp.Models;
+using DFC.App.JobProfileSkills.MessageFunctionApp.Startup;
 using DFC.Functions.DI.Standard;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Hosting;
@@ -7,9 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 
-[assembly: WebJobsStartup(typeof(DFC.App.JobProfilesSkills.MessageFunctionApp.Startup.WebJobsExtensionStartup), "Web Jobs Extension Startup")]
+[assembly: WebJobsStartup(typeof(WebJobsExtensionStartup), "Web Jobs Extension Startup")]
 
-namespace DFC.App.JobProfilesSkills.MessageFunctionApp.Startup
+namespace DFC.App.JobProfileSkills.MessageFunctionApp.Startup
 {
     public class WebJobsExtensionStartup : IWebJobsStartup
     {
