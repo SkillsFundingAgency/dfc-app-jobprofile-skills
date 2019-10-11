@@ -1,7 +1,7 @@
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 
-namespace DFC.App.JobProfilesSkills.MessageFunctionApp
+namespace DFC.App.JobProfileSkills.MessageFunctionApp
 {
     public static class Function1
     {
