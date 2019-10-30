@@ -46,9 +46,9 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
                         return await httpClientService.PatchAsync(patchRestrictionModel, "restriction").ConfigureAwait(false);
                     }
 
-                case MessageContentType.RelatedSkill:
+                case MessageContentType.Skill:
                     {
-                        var serviceBusMessage = JsonConvert.DeserializeObject<PatchRelatedSkillServiceBusModel>(message);
+                        var serviceBusMessage = JsonConvert.DeserializeObject<PatchOnetSkillServiceBusModel>(message);
                         var patchRelatedSkillModel = mapper.Map<PatchOnetSkillModel>(serviceBusMessage);
                         patchRelatedSkillModel.MessageAction = messageAction;
                         patchRelatedSkillModel.SequenceNumber = sequenceNumber;
@@ -56,7 +56,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
                         return await httpClientService.PatchAsync(patchRelatedSkillModel, "onetSkill").ConfigureAwait(false);
                     }
 
-                case MessageContentType.SkillsMatrix:
+                case MessageContentType.SocSkillsMatrix:
                     {
                         var serviceBusMessage = JsonConvert.DeserializeObject<PatchSkillsMatrixServiceBusModel>(message);
                         var patchSkillsMatrixModel = mapper.Map<PatchContextualisedModel>(serviceBusMessage);

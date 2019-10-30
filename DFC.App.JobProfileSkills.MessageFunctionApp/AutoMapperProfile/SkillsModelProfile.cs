@@ -35,13 +35,9 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.AutoMapperProfile
 
             CreateMap<RelatedSkill, OnetSkill>();
 
-            CreateMap<Data.ServiceBusModels.RelatedSoc, Data.Models.RelatedSoc>();
-
-            CreateMap<Data.ServiceBusModels.RelatedSkill, Data.Models.OnetSkill>();
-
             CreateMap<PatchDigitalSkillsLevelServiceBusModel, PatchDigitalSkillModel>();
 
-            CreateMap<PatchRelatedSkillServiceBusModel, PatchOnetSkillModel>();
+            CreateMap<PatchOnetSkillServiceBusModel, PatchOnetSkillModel>();
 
             CreateMap<PatchRestrictionsServiceBusModel, PatchRestrictionModel>()
                 .ForMember(d => d.Description, s => s.MapFrom(a => a.Info));
