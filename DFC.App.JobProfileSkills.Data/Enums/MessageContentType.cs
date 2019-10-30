@@ -5,8 +5,7 @@
         JobProfile,
         DigitalSkillsLevel,
         Restrictions,
-        SkillsMatrix,
-        RelatedSkill,
-        RelatedSoc,
+        SocSkillsMatrix,
+        Skill,
     }
 }
