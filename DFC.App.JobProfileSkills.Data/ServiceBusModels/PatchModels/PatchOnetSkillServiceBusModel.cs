@@ -2,7 +2,7 @@
 
 namespace DFC.App.JobProfileSkills.Data.ServiceBusModels.PatchModels
 {
-    public class PatchRelatedSkillServiceBusModel : BaseJobProfileMessage
+    public class PatchOnetSkillServiceBusModel : BaseJobProfileMessage
     {
         public Guid Id { get; set; }
 
