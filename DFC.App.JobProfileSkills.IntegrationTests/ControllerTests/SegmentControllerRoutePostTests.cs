@@ -57,7 +57,7 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.ControllerTests
         }
 
         [Fact]
-        public async Task WhenUpdateExistingArticleReturnsOK()
+        public async Task WhenUpdateExistingArticleReturnsAlreadyReported()
         {
             // Arrange
             var url = "/segment";
@@ -77,7 +77,7 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.ControllerTests
 
             // Assert
             response.EnsureSuccessStatusCode();
-            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            response.StatusCode.Should().Be(HttpStatusCode.AlreadyReported);
         }
     }
 }

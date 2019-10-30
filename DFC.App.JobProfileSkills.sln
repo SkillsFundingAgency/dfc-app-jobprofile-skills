@@ -32,6 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		LICENSE = LICENSE
 		README.md = README.md
 		stylecop.json = stylecop.json
+		UnitTests.CodeAnalysis.ruleset = UnitTests.CodeAnalysis.ruleset
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{C647682A-032D-4984-A820-92DF0A80FE11}"
@@ -57,6 +58,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Functions", "Functions", "{FDE763BA-8ABB-4B51-8086-D75F3CBAAE18}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.MessageFunctionApp", "DFC.App.JobProfileSkills.MessageFunctionApp\DFC.App.JobProfileSkills.MessageFunctionApp.csproj", "{233E8B3E-CEBE-4002-A67B-90DD9C4C8ABF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessagingFunction", "MessagingFunction", "{F7B529EF-7118-45D6-A60F-A36575AF5DF4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.MessageFunctionAppTests", "DFC.App.JobProfileSkills.MessageFunctionAppTests\DFC.App.JobProfileSkills.MessageFunctionAppTests.csproj", "{43342FB3-EB6E-40C1-B80D-0555F49CB680}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -112,6 +117,10 @@ Global
 		{233E8B3E-CEBE-4002-A67B-90DD9C4C8ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{233E8B3E-CEBE-4002-A67B-90DD9C4C8ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{233E8B3E-CEBE-4002-A67B-90DD9C4C8ABF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43342FB3-EB6E-40C1-B80D-0555F49CB680}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43342FB3-EB6E-40C1-B80D-0555F49CB680}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43342FB3-EB6E-40C1-B80D-0555F49CB680}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43342FB3-EB6E-40C1-B80D-0555F49CB680}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,6 +143,8 @@ Global
 		{C8D27B11-E865-4F95-AB6B-9702DE81C621} = {06BDDD2C-26B9-4506-9B05-1B2B8B584A5B}
 		{311410C6-EA51-4EC7-9EAF-5FE9781F1BA2} = {06BDDD2C-26B9-4506-9B05-1B2B8B584A5B}
 		{233E8B3E-CEBE-4002-A67B-90DD9C4C8ABF} = {FDE763BA-8ABB-4B51-8086-D75F3CBAAE18}
+		{F7B529EF-7118-45D6-A60F-A36575AF5DF4} = {0903BF76-807C-40D3-B562-B15C007F5398}
+		{43342FB3-EB6E-40C1-B80D-0555F49CB680} = {F7B529EF-7118-45D6-A60F-A36575AF5DF4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E28ABB6D-5D57-4455-A0E5-E72E77B03DC5}

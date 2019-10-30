@@ -15,12 +15,13 @@ namespace DFC.App.JobProfileSkills.Data.Models
         [Required]
         public string CanonicalName { get; set; }
 
-        public DateTime LastReviewed { get; set; }
-
         public string PartitionKey => SocLevelTwo;
 
         [Required]
         public string SocLevelTwo { get; set; }
+
+        [Required]
+        public long SequenceNumber { get; set; }
 
         public JobProfileSkillSegmentDataModel Data { get; set; }
     }

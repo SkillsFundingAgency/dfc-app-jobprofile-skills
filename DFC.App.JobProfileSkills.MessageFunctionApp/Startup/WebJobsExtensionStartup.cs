@@ -1,10 +1,13 @@
-﻿using DFC.App.JobProfileSkills.MessageFunctionApp.Models;
+﻿using AutoMapper;
+using DFC.App.JobProfileSkills.MessageFunctionApp.Models;
+using DFC.App.JobProfileSkills.MessageFunctionApp.Services;
 using DFC.App.JobProfileSkills.MessageFunctionApp.Startup;
 using DFC.Functions.DI.Standard;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net.Http;
 
@@ -25,9 +28,13 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Startup
             var segmentClientOptions = configuration.GetSection("JobProfileSkillsSegmentClientOptions").Get<SegmentClientOptions>();
 
             builder.AddDependencyInjection();
-
+            builder?.Services.AddAutoMapper(typeof(WebJobsExtensionStartup).Assembly);
             builder.Services.AddSingleton<SegmentClientOptions>(segmentClientOptions);
             builder.Services.AddSingleton<HttpClient>(new HttpClient());
+            builder?.Services.AddSingleton<IHttpClientService, HttpClientService>();
+            builder?.Services.AddSingleton<IMessageProcessor, MessageProcessor>();
+            builder?.Services.AddSingleton<IMappingService, MappingService>();
+            builder?.Services.AddSingleton<ILogger, Logger<WebJobsExtensionStartup>>();
         }
     }
 }

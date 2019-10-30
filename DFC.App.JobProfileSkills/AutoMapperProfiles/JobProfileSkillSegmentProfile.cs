@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using DFC.App.JobProfileSkills.Data.Models;
+using DFC.App.JobProfileSkills.Data.Models.PatchModels;
+using DFC.App.JobProfileSkills.Data.ServiceBusModels;
 using DFC.App.JobProfileSkills.ViewModels;
 
 namespace DFC.App.JobProfileSkills.AutoMapperProfiles
@@ -8,17 +10,43 @@ namespace DFC.App.JobProfileSkills.AutoMapperProfiles
     {
         public JobProfileSkillSegmentProfile()
         {
-            CreateMap<Data.Models.GenericListContent, ViewModels.GenericListContent>();
-
             CreateMap<JobProfileSkillSegmentModel, IndexDocumentViewModel>();
 
             CreateMap<JobProfileSkillSegmentModel, DocumentViewModel>();
 
             CreateMap<JobProfileSkillSegmentModel, BodyViewModel>();
 
-            CreateMap<JobProfileSkillSegmentDataModel, BodyDataViewModel>();
+            CreateMap<JobProfileSkillSegmentDataModel, BodyDataViewModel>()
+                .ForMember(d => d.Skills, s => s.MapFrom(a => a.Skills));
 
-            CreateMap<JobProfileSkillSegmentSkillDataModel, BodyDataSkillSegmentSkillViewModel>();
+            CreateMap<Skills, SkillsViewModel>();
+
+            CreateMap<OnetSkill, OnetSkillViewModel>();
+
+            CreateMap<ContextualisedSkill, ContextualisedSkillViewModel>();
+
+            CreateMap<Data.Models.Restriction, RestrictionViewModel>();
+
+            CreateMap<JobProfileSkillSegmentModel, RefreshJobProfileSegmentServiceBusModel>()
+                .ForMember(d => d.JobProfileId, s => s.MapFrom(a => a.DocumentId))
+                .ForMember(d => d.Segment, s => s.MapFrom(a => JobProfileSkillSegmentDataModel.SegmentName));
+
+            CreateMap<PatchRestrictionModel, Data.Models.Restriction>()
+                .ForMember(d => d.Rank, s => s.Ignore());
+
+            CreateMap<PatchOnetSkillModel, OnetSkill>();
+
+            CreateMap<PatchContextualisedModel, ContextualisedSkill>();
+
+            CreateMap<PatchContextualisedModel, Skills>()
+                .ForMember(d => d.OnetSkill, s => s.MapFrom(a => a.RelatedSkill))
+                .ForMember(d => d.ContextualisedSkill, s => s.MapFrom(a => a));
+
+            CreateMap<PatchContextualisedModel, OnetSkill>()
+                .ForMember(d => d.Id, s => s.Ignore())
+                .ForAllOtherMembers(s => s.MapFrom(a => a.RelatedSkill));
+
+            CreateMap<RelatedSkill, OnetSkill>();
         }
     }
 }

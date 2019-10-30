@@ -4,13 +4,13 @@
     "parameters": {
         "appServiceDomain": {
             "type": "string"
-        },        
+        },
         "appSharedResourceGroup": {
             "type": "string"
         },
         "appSharedServiceBusName": {
             "type": "string"
-        },        
+        },
         "appSharedStorageAccountName": {
             "type": "string"
         },
@@ -42,7 +42,7 @@
         },
         "environment": {
             "type": "string"
-        },        
+        },
         "sharedAppServicePlanName": {
             "type": "string",
             "defaultValue": ""
@@ -69,8 +69,8 @@
         "cosmosDbCollectionPartitionKey": "/PartitionKey",
         "cosmosDbDatabaseName": "dfc-app-jobprofiles",
         "cosmosDbEndpoint": "[concat('https://', parameters('cosmosDbName'), '.documents.azure.com:443/')]",
-        "resourcePrefix": "[tolower(concat('dfc-', parameters('environment'), '-app-jobprofskills'))]",    
-        "urlJobprofileSkills": "[toLower(concat('https://', variables('webAppName'), '.', parameters('appServiceDomain')))]",            
+        "resourcePrefix": "[tolower(concat('dfc-', parameters('environment'), '-app-jobprofskills'))]",
+        "urlJobprofileSkills": "[toLower(concat('https://', variables('webAppName'), '.', parameters('appServiceDomain')))]",
         "webAppName": "[concat(variables('resourcePrefix'), '-as')]",
         "webAppInsightsName": "[concat(variables('webAppName'), '-ai')]",
         "functionAppName": "[concat(variables('ResourcePrefix'), '-fa')]",
@@ -257,7 +257,7 @@
                     },
                     "appServiceAppSettings": {
                         "value": [
-                             {
+                            {
                                 "name": "FUNCTIONS_EXTENSION_VERSION",
                                 "value": "~2"
                             },
@@ -274,15 +274,15 @@
                                 "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('appSharedStorageAccountName'),';AccountKey=',listKeys(resourceId(parameters('appSharedResourceGroup'), 'Microsoft.Storage/storageAccounts', parameters('appSharedStorageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ';EndpointSuffix=core.windows.net')]"
                             },
                             {
-                                "name": "Values__service-bus-connection-string",
+                                "name": "service-bus-connection-string",
                                 "value": "[listKeys(resourceId(parameters('appSharedResourceGroup'), 'Microsoft.ServiceBus/namespaces/authorizationRules', parameters('appSharedServiceBusName'), 'ReadWrite'), '2017-04-01').primaryConnectionString]"
                             },
                             {
-                                "name": "Values__cms-messages-topic",
+                                "name": "cms-messages-topic",
                                 "value": "[variables('cmsTopicName')]"
                             },
                             {
-                                "name": "Values__cms-messages-subscription",
+                                "name": "cms-messages-subscription",
                                 "value": "[variables('cmsSubscriptionName')]"
                             },
                             {
@@ -316,7 +316,7 @@
             "dependsOn": [
                 "[variables('functionAppInsightsName')]"
             ]
-        },        
+        },
         {
             "apiVersion": "2017-05-10",
             "name": "[parameters('cosmosDbCollectionName')]",
@@ -375,5 +375,6 @@
             }
         }
     ],
-        "outputs": {}
+    "outputs": {
     }
+}

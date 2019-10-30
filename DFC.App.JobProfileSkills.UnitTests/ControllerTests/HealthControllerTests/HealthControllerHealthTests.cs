@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Mime;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.HealthControllerTests
@@ -13,7 +14,7 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.HealthControllerTes
     public class HealthControllerHealthTests : BaseHealthController
     {
         [Fact]
-        public async void ReturnsSuccessWhenhealthy()
+        public async Task ReturnsSuccessWhenhealthy()
         {
             // Arrange
             var expectedResult = true;
@@ -39,7 +40,7 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.HealthControllerTes
         }
 
         [Fact]
-        public async void ReturnsServiceUnavailableWhenUnhealthy()
+        public async Task ReturnsServiceUnavailableWhenUnhealthy()
         {
             // Arrange
             var expectedResult = false;
@@ -61,7 +62,7 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.HealthControllerTes
         }
 
         [Fact]
-        public async void ReturnsServiceUnavailableWhenException()
+        public async Task ReturnsServiceUnavailableWhenException()
         {
             // Arrange
             var controller = BuildHealthController(MediaTypeNames.Application.Json);
