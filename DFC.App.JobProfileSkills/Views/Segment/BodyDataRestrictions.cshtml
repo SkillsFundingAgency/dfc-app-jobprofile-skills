@@ -1,5 +1,5 @@
 ﻿@{
-    var restrictions = Model.Restrictions as List<GenericListContent>;
+    var restrictions = Model.Restrictions as List<RestrictionViewModel>;
 }
 @if (Model.HasRestrictions || !string.IsNullOrWhiteSpace(Model.OtherRequirements))
 {
@@ -12,7 +12,7 @@
                 <ul>
                     @foreach (var restriction in restrictions)
                     {
-                        <li>@Html.Raw(restriction.Description)</li>
+                        <li>@Html.Raw(restriction.Title)</li>
                     }
                 </ul>
             }

@@ -1,4 +1,3 @@
-using DFC.App.JobProfileSkills.Data.Models;
 using DFC.App.JobProfileSkills.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -18,12 +17,15 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
             var model = new BodyDataViewModel()
             {
                 DigitalSkill = "DigitalSkill1",
-                Skills = new List<BodyDataSkillSegmentSkillViewModel>()
+                Skills = new List<SkillsViewModel>()
                 {
-                    new BodyDataSkillSegmentSkillViewModel()
+                    new SkillsViewModel
                     {
-                        StandardDescription = "StandardDescription1",
-                        ContextualisedDescription = "ContextualisedDescription",
+                        ContextualisedSkill = new ContextualisedSkillViewModel
+                        {
+                            Id = Guid.NewGuid(),
+                            Description = "contextualised Description",
+                        },
                     },
                 },
             };
@@ -35,7 +37,7 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
             Assert.Contains(model.DigitalSkill, viewRenderResponse, StringComparison.OrdinalIgnoreCase);
             foreach (var skill in model.Skills)
             {
-                Assert.Contains(skill.ContextualisedDescription, viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+                Assert.Contains(skill.ContextualisedSkill.Description, viewRenderResponse, StringComparison.OrdinalIgnoreCase);
             }
         }
 
@@ -48,12 +50,22 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
             var model = new BodyDataViewModel()
             {
                 DigitalSkill = "DigitalSkill1",
-                Skills = new List<BodyDataSkillSegmentSkillViewModel>()
+                Skills = new List<SkillsViewModel>()
                 {
-                    new BodyDataSkillSegmentSkillViewModel()
+                    new SkillsViewModel
                     {
-                        StandardDescription = "StandardDescription1",
-                        ContextualisedDescription = contextualisedDescription,
+                        OnetSkill = new OnetSkillViewModel
+                        {
+                            Id = Guid.NewGuid(),
+                            Description = "StandardDescription1",
+                            Title = "StandardTitle1",
+                            ONetElementId = "StandardOnetElement1",
+                        },
+                        ContextualisedSkill = new ContextualisedSkillViewModel
+                        {
+                            Id = Guid.NewGuid(),
+                            Description = contextualisedDescription,
+                        },
                     },
                 },
             };
@@ -62,7 +74,7 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
             var viewRenderResponse = RenderView(model, ViewName);
 
             //Assert
-            Assert.Contains(model.Skills.First().StandardDescription, viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains(model.Skills.First().OnetSkill.Description, viewRenderResponse, StringComparison.OrdinalIgnoreCase);
         }
 
         [Fact]

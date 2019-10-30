@@ -1,48 +1,60 @@
-﻿using DFC.App.JobProfileSkills.Data.Models;
+﻿using AutoMapper;
+using DFC.App.JobProfileSkills.Data.Models;
+using DFC.App.JobProfileSkills.Data.ServiceBusModels;
 using DFC.App.JobProfileSkills.Repository.CosmosDb;
 using FakeItEasy;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
 {
     public class SegmentServicePingTests
     {
-        [Fact]
-        public void PingReturnsSuccess()
+        private readonly IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> jobProfileSegmentRefreshService;
+        private readonly IMapper mapper;
+
+        public SegmentServicePingTests()
         {
-            // arrange
-            var repository = A.Fake<ICosmosRepository<JobProfileSkillSegmentModel>>();
-            var expectedResult = true;
-
-            A.CallTo(() => repository.PingAsync()).Returns(expectedResult);
-
-            var skillSegmentService = new JobProfileSkillSegmentService(repository);
-
-            // act
-            var result = skillSegmentService.PingAsync().Result;
-
-            // assert
-            A.CallTo(() => repository.PingAsync()).MustHaveHappenedOnceExactly();
-            A.Equals(result, expectedResult);
+            jobProfileSegmentRefreshService = A.Fake<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
+            mapper = A.Fake<IMapper>();
         }
 
         [Fact]
-        public void PingReturnsFalseWhenNotInRepository()
+        public async Task PingReturnsSuccess()
         {
             // arrange
-            var repository = A.Dummy<ICosmosRepository<JobProfileSkillSegmentModel>>();
-            var expectedResult = false;
+            const bool expectedResult = true;
+            var repository = A.Fake<ICosmosRepository<JobProfileSkillSegmentModel>>();
 
             A.CallTo(() => repository.PingAsync()).Returns(expectedResult);
 
-            var skillSegmentService = new JobProfileSkillSegmentService(repository);
+            var skillSegmentService = new JobProfileSkillSegmentService(repository, mapper, jobProfileSegmentRefreshService);
 
             // act
-            var result = skillSegmentService.PingAsync().Result;
+            var result = await skillSegmentService.PingAsync().ConfigureAwait(false);
 
             // assert
             A.CallTo(() => repository.PingAsync()).MustHaveHappenedOnceExactly();
-            A.Equals(result, expectedResult);
+            Assert.Equal(expectedResult, result);
+        }
+
+        [Fact]
+        public async Task PingReturnsFalseWhenNotInRepository()
+        {
+            // arrange
+            const bool expectedResult = false;
+            var repository = A.Dummy<ICosmosRepository<JobProfileSkillSegmentModel>>();
+
+            A.CallTo(() => repository.PingAsync()).Returns(expectedResult);
+
+            var skillSegmentService = new JobProfileSkillSegmentService(repository, mapper, jobProfileSegmentRefreshService);
+
+            // act
+            var result = await skillSegmentService.PingAsync().ConfigureAwait(false);
+
+            // assert
+            A.CallTo(() => repository.PingAsync()).MustHaveHappenedOnceExactly();
+            Assert.Equal(expectedResult, result);
         }
     }
 }

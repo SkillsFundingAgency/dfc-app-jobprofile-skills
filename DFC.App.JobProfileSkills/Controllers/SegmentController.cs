@@ -1,5 +1,6 @@
 ﻿using DFC.App.JobProfileSkills.Data.Contracts;
 using DFC.App.JobProfileSkills.Data.Models;
+using DFC.App.JobProfileSkills.Data.Models.PatchModels;
 using DFC.App.JobProfileSkills.Extensions;
 using DFC.App.JobProfileSkills.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -16,8 +17,13 @@ namespace DFC.App.JobProfileSkills.Controllers
         private const string IndexActionName = nameof(Index);
         private const string DocumentActionName = nameof(Document);
         private const string BodyActionName = nameof(Body);
-        private const string SaveActionName = nameof(Save);
+        private const string PutActionName = nameof(Put);
+        private const string PostActionName = nameof(Post);
         private const string DeleteActionName = nameof(Delete);
+        private const string PatchDigitalSkillActionName = nameof(PatchDigitalSkill);
+        private const string PatchOnetSkillActionName = nameof(PatchOnetSkill);
+        private const string PatchSkillsMatrixActionName = nameof(PatchSkillsMatrix);
+        private const string PatchRestrictionActionName = nameof(PatchRestriction);
 
         private readonly ILogger<SegmentController> logger;
         private readonly IJobProfileSkillSegmentService jobProfileSkillSegmentService;
@@ -80,35 +86,34 @@ namespace DFC.App.JobProfileSkills.Controllers
         }
 
         [HttpGet]
-        [Route("{controller}/{article}/contents")]
-        public async Task<IActionResult> Body(string article)
+        [Route("{controller}/{documentId}/contents")]
+        public async Task<IActionResult> Body(Guid documentId)
         {
-            logger.LogInformation($"{BodyActionName} has been called with: {article}");
+            logger.LogInformation($"{BodyActionName} has been called with: {documentId}");
 
-            var model = await jobProfileSkillSegmentService.GetByNameAsync(article, Request.IsDraftRequest()).ConfigureAwait(false);
+            var model = await jobProfileSkillSegmentService.GetByIdAsync(documentId).ConfigureAwait(false);
 
             if (model != null)
             {
                 var viewModel = mapper.Map<BodyViewModel>(model);
 
-                logger.LogInformation($"{BodyActionName} has succeeded for: {article}");
+                logger.LogInformation($"{BodyActionName} has succeeded for: {documentId}");
 
                 return this.NegotiateContentResult(viewModel, model.Data);
             }
 
-            logger.LogWarning($"{BodyActionName} has returned no content for: {article}");
+            logger.LogWarning($"{BodyActionName} has returned no content for: {documentId}");
 
             return NoContent();
         }
 
-        [HttpPut]
         [HttpPost]
         [Route("segment")]
-        public async Task<IActionResult> Save([FromBody]JobProfileSkillSegmentModel upsertJobProfileSkillSegmentModel)
+        public async Task<IActionResult> Post([FromBody]JobProfileSkillSegmentModel jobProfileSkillSegmentModel)
         {
-            logger.LogInformation($"{SaveActionName} has been called");
+            logger.LogInformation($"{PostActionName} has been called");
 
-            if (upsertJobProfileSkillSegmentModel == null)
+            if (jobProfileSkillSegmentModel == null)
             {
                 return BadRequest();
             }
@@ -118,24 +123,152 @@ namespace DFC.App.JobProfileSkills.Controllers
                 return BadRequest(ModelState);
             }
 
-            var response = await jobProfileSkillSegmentService.UpsertAsync(upsertJobProfileSkillSegmentModel).ConfigureAwait(false);
-
-            if (response.ResponseStatusCode == HttpStatusCode.Created)
+            var existingDocument = await jobProfileSkillSegmentService.GetByIdAsync(jobProfileSkillSegmentModel.DocumentId).ConfigureAwait(false);
+            if (existingDocument != null)
             {
-                logger.LogInformation($"{SaveActionName} has created content for: {upsertJobProfileSkillSegmentModel.CanonicalName}");
-
-                return new CreatedAtActionResult(
-                    SaveActionName,
-                    "Segment",
-                    new { article = response.JobProfileSkillSegmentModel.CanonicalName },
-                    response.JobProfileSkillSegmentModel);
+                return new StatusCodeResult((int)HttpStatusCode.AlreadyReported);
             }
-            else
+
+            var response = await jobProfileSkillSegmentService.UpsertAsync(jobProfileSkillSegmentModel).ConfigureAwait(false);
+
+            logger.LogInformation($"{PostActionName} has upserted content for: {jobProfileSkillSegmentModel.CanonicalName}");
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPut]
+        [Route("segment")]
+        public async Task<IActionResult> Put([FromBody]JobProfileSkillSegmentModel jobProfileSkillSegmentModel)
+        {
+            logger.LogInformation($"{PutActionName} has been called");
+
+            if (jobProfileSkillSegmentModel == null)
             {
-                logger.LogInformation($"{SaveActionName} has updated content for: {upsertJobProfileSkillSegmentModel.CanonicalName}");
-
-                return new OkObjectResult(response.JobProfileSkillSegmentModel);
+                return BadRequest();
             }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var existingDocument = await jobProfileSkillSegmentService.GetByIdAsync(jobProfileSkillSegmentModel.DocumentId).ConfigureAwait(false);
+            if (existingDocument == null)
+            {
+                return new StatusCodeResult((int)HttpStatusCode.NotFound);
+            }
+
+            if (jobProfileSkillSegmentModel.SequenceNumber <= existingDocument.SequenceNumber)
+            {
+                return new StatusCodeResult((int)HttpStatusCode.AlreadyReported);
+            }
+
+            jobProfileSkillSegmentModel.Etag = existingDocument.Etag;
+            jobProfileSkillSegmentModel.SocLevelTwo = existingDocument.SocLevelTwo;
+
+            var response = await jobProfileSkillSegmentService.UpsertAsync(jobProfileSkillSegmentModel).ConfigureAwait(false);
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPatch]
+        [Route("segment/{documentId}/digitalSkillsLevel")]
+        public async Task<IActionResult> PatchDigitalSkill([FromBody]PatchDigitalSkillModel patchDigitalSkillModel, Guid documentId)
+        {
+            logger.LogInformation($"{PatchDigitalSkillActionName} has been called");
+
+            if (patchDigitalSkillModel == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await jobProfileSkillSegmentService.PatchDigitalSkillAsync(patchDigitalSkillModel, documentId).ConfigureAwait(false);
+            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
+            {
+                logger.LogError($"{PatchDigitalSkillActionName}: Error while patching Digital Skill Level content for Job Profile with Id: {patchDigitalSkillModel.JobProfileId} for {patchDigitalSkillModel.Title} ");
+            }
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPatch]
+        [Route("segment/{documentId}/onetSkill")]
+        public async Task<IActionResult> PatchOnetSkill([FromBody]PatchOnetSkillModel patchOnetSkillModel, Guid documentId)
+        {
+            logger.LogInformation($"{PatchOnetSkillActionName} has been called");
+
+            if (patchOnetSkillModel == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await jobProfileSkillSegmentService.PatchOnetSkillAsync(patchOnetSkillModel, documentId).ConfigureAwait(false);
+            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
+            {
+                logger.LogError($"{PatchOnetSkillActionName}: Error while patching Related Skill content for Job Profile with Id: {patchOnetSkillModel.JobProfileId} for {patchOnetSkillModel.Title} ");
+            }
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPatch]
+        [Route("segment/{documentId}/skillsMatrix")]
+        public async Task<IActionResult> PatchSkillsMatrix([FromBody]PatchContextualisedModel patchContextualisedModel, Guid documentId)
+        {
+            logger.LogInformation($"{PatchSkillsMatrixActionName} has been called");
+
+            if (patchContextualisedModel == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await jobProfileSkillSegmentService.PatchSkillsMatrixAsync(patchContextualisedModel, documentId).ConfigureAwait(false);
+            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
+            {
+                logger.LogError($"{PatchSkillsMatrixActionName}: Error while patching Skills Matrix content for Job Profile with Id: {patchContextualisedModel.JobProfileId} for {patchContextualisedModel.Description} ");
+            }
+
+            return new StatusCodeResult((int)response);
+        }
+
+        [HttpPatch]
+        [Route("segment/{documentId}/restriction")]
+        public async Task<IActionResult> PatchRestriction([FromBody]PatchRestrictionModel patchRestrictionModel, Guid documentId)
+        {
+            logger.LogInformation($"{PatchRestrictionActionName} has been called");
+
+            if (patchRestrictionModel == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await jobProfileSkillSegmentService.PatchRestrictionAsync(patchRestrictionModel, documentId).ConfigureAwait(false);
+            if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
+            {
+                logger.LogError($"{PatchRestrictionActionName}: Error while patching Skills Matrix content for Job Profile with Id: {patchRestrictionModel.JobProfileId} for {patchRestrictionModel.Title} ");
+            }
+
+            return new StatusCodeResult((int)response);
         }
 
         [HttpDelete]

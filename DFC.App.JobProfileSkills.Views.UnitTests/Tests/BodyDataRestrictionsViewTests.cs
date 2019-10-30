@@ -16,10 +16,10 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
             var model = new BodyDataViewModel()
             {
                 OtherRequirements = "OtherRequirements1",
-                Restrictions = new List<ViewModels.GenericListContent>
+                Restrictions = new List<RestrictionViewModel>
                 {
-                    new ViewModels.GenericListContent{ Id = "1", Description = "Restrictions1", Rank = 1},
-                    new ViewModels.GenericListContent{ Id = "2", Description = "Restrictions2", Rank = 2},
+                    new RestrictionViewModel { Id = "1", Title = "Restrictions1", Rank = 1 },
+                    new RestrictionViewModel { Id = "2", Title = "Restrictions2", Rank = 2 },
                 },
             };
 
@@ -30,9 +30,9 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
             Assert.Contains(model.OtherRequirements, viewRenderResponse, StringComparison.OrdinalIgnoreCase);
             foreach (var restriction in model.Restrictions)
             {
-                var restrictionDesc = restriction?.Description;
+                var restrictionTitle = restriction?.Title;
 
-                Assert.Contains(restrictionDesc, viewRenderResponse, StringComparison.OrdinalIgnoreCase);
+                Assert.Contains(restrictionTitle, viewRenderResponse, StringComparison.OrdinalIgnoreCase);
             }
         }
 
