@@ -4,7 +4,7 @@
     {
         JobProfile,
         DigitalSkillsLevel,
-        Restrictions,
+        Restriction,
         SocSkillsMatrix,
         Skill,
     }
