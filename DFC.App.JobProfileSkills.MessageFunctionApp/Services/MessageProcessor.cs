@@ -36,7 +36,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
                         return await httpClientService.PatchAsync(patchDigitalSkillModel, "digitalSkillsLevel").ConfigureAwait(false);
                     }
 
-                case MessageContentType.Restrictions:
+                case MessageContentType.Restriction:
                     {
                         var serviceBusMessage = JsonConvert.DeserializeObject<PatchRestrictionsServiceBusModel>(message);
                         var patchRestrictionModel = mapper.Map<PatchRestrictionModel>(serviceBusMessage);
