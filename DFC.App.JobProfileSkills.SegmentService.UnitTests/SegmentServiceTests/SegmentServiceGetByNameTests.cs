@@ -1,5 +1,6 @@
 ﻿using DFC.App.JobProfileSkills.Data.Contracts;
 using DFC.App.JobProfileSkills.Data.Models;
+using DFC.App.JobProfileSkills.Data.ServiceBusModels;
 using DFC.App.JobProfileSkills.Repository.CosmosDb;
 using FakeItEasy;
 using System;
@@ -16,8 +17,11 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
 
         public SegmentServiceGetByNameTests()
         {
+            var jobProfileSegmentRefreshService = A.Fake<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
+            var mapper = A.Fake<AutoMapper.IMapper>();
+
             repository = A.Fake<ICosmosRepository<JobProfileSkillSegmentModel>>();
-            jobProfileSkillSegmentService = new JobProfileSkillSegmentService(repository);
+            jobProfileSkillSegmentService = new JobProfileSkillSegmentService(repository, mapper, jobProfileSegmentRefreshService);
         }
 
         [Fact]

@@ -1,17 +1,14 @@
-﻿@{
-    var skills = Model.Skills as List<BodyDataSkillSegmentSkillViewModel>;
-}
-@if (skills.Count > 0 || !string.IsNullOrEmpty(Model.DigitalSkill))
+﻿@if (Model.HasSkills || !string.IsNullOrEmpty(Model.DigitalSkill))
 {
     <section class="job-profile-subsection">
         <h3>Skills and knowledge</h3>
         <div class="job-profile-subsection-content">
             <p>You'll need:</p>
             <ul>
-                @foreach (var skill in skills)
+                @foreach (var skill in Model.Skills)
                 {
                     <li>
-                        @Html.Raw(string.IsNullOrEmpty(skill.ContextualisedDescription) ? skill.StandardDescription : skill.ContextualisedDescription)
+                        @Html.Raw(string.IsNullOrEmpty(skill.ContextualisedSkill.Description) ? skill.OnetSkill.Description : skill.ContextualisedSkill.Description)
                     </li>
                 }
                 @if (!string.IsNullOrEmpty(Model.DigitalSkill))

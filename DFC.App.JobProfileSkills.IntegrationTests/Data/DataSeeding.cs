@@ -69,9 +69,9 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.Data
 
         private List<JobProfileSkillSegmentModel> CreateModels()
         {
-            var models = new List<JobProfileSkillSegmentModel>()
+            return new List<JobProfileSkillSegmentModel>
             {
-                new JobProfileSkillSegmentModel()
+                new JobProfileSkillSegmentModel
                 {
                     DocumentId = Article1Id,
                     CanonicalName = Article1Name,
@@ -79,34 +79,54 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.Data
                     Data = new JobProfileSkillSegmentDataModel
                     {
                         DigitalSkill = "DigitalSkill1",
-                        Restrictions = new List<GenericListContent>
+                        Restrictions = new List<Restriction>
                         {
-                            new GenericListContent{ Id = "1", Description = "Restrictions1a", Rank = 1},
-                            new GenericListContent{ Id = "2", Description = "Restrictions1b", Rank = 2},
+                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions1a", Description = "Restrictions1a", Rank = 1 },
+                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions1b", Description = "Restrictions1b", Rank = 2 },
                         },
                         OtherRequirements = "OtherRequirements1",
-                        RestrictionsSummary = "RestrictionsSummary1",
-                        Skills = new List<JobProfileSkillSegmentSkillDataModel>()
+                        Skills = new List<Skills>
                         {
-                            new JobProfileSkillSegmentSkillDataModel()
+                            new Skills
                             {
-                                Id = "id1",
-                                ContextualisedDescription = "ContextualisedDescription1",
-                                Rank = 1,
-                                StandardDescription = "StandardDescription1",
+                                OnetSkill = new OnetSkill
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Description = "OnetSkillDesc1",
+                                    Title = "OnetSkill1Title",
+                                    ONetElementId = "OnetElementId1",
+                                },
+                                ContextualisedSkill = new ContextualisedSkill
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Description = "ContextualisedSkillDesc1",
+                                    ONetAttributeType = "ContextualisedSkill attribute type 1",
+                                    OriginalRank = 123.0M,
+                                    ONetRank = 4.0M,
+                                },
                             },
-                            new JobProfileSkillSegmentSkillDataModel()
+                            new Skills
                             {
-                                Id = "id2",
-                                ContextualisedDescription = "ContextualisedDescription2",
-                                Rank = 2,
-                                StandardDescription = "StandardDescription2",
+                                OnetSkill = new OnetSkill
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Description = "OnetSkillDesc2",
+                                    Title = "OnetSkill2Title",
+                                    ONetElementId = "OnetElementId2",
+                                },
+                                ContextualisedSkill = new ContextualisedSkill
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Description = "ContextualisedSkillDesc2",
+                                    ONetAttributeType = "ContextualisedSkill attribute type 2",
+                                    OriginalRank = 123.0M,
+                                    ONetRank = 4.0M,
+                                },
                             },
                         },
-                        Summary = "Summary1",
                     },
                 },
-                new JobProfileSkillSegmentModel()
+                new JobProfileSkillSegmentModel
                 {
                     DocumentId = Article2Id,
                     CanonicalName = Article2Name,
@@ -114,34 +134,54 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.Data
                     Data = new JobProfileSkillSegmentDataModel
                     {
                         DigitalSkill = "DigitalSkill2",
-                        Restrictions = new List<GenericListContent>
+                        Restrictions = new List<Restriction>
                         {
-                            new GenericListContent{ Id = "1", Description = "Restrictions2a", Rank = 1},
-                            new GenericListContent{ Id = "2", Description = "Restrictions2b", Rank = 2},
+                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions2a", Description = "Restrictions2a", Rank = 1 },
+                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions2b", Description = "Restrictions2b", Rank = 2 },
                         },
                         OtherRequirements = "OtherRequirements2",
-                        RestrictionsSummary = "RestrictionsSummary2",
-                        Skills = new List<JobProfileSkillSegmentSkillDataModel>()
+                        Skills = new List<Skills>
                         {
-                            new JobProfileSkillSegmentSkillDataModel()
+                            new Skills
                             {
-                                Id = "id3",
-                                ContextualisedDescription = "ContextualisedDescription3",
-                                Rank = 3,
-                                StandardDescription = "StandardDescription3",
+                                OnetSkill = new OnetSkill
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Description = "OnetSkillDesc3",
+                                    Title = "OnetSkill3Title",
+                                    ONetElementId = "OnetElementId3",
+                                },
+                                ContextualisedSkill = new ContextualisedSkill
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Description = "ContextualisedSkillDesc3",
+                                    ONetAttributeType = "ContextualisedSkill attribute type 3",
+                                    OriginalRank = 123.0M,
+                                    ONetRank = 4.0M,
+                                },
                             },
-                            new JobProfileSkillSegmentSkillDataModel()
+                            new Skills
                             {
-                                Id = "id4",
-                                ContextualisedDescription = "ContextualisedDescription4",
-                                Rank = 4,
-                                StandardDescription = "StandardDescription4",
+                                OnetSkill = new OnetSkill
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Description = "OnetSkillDesc4",
+                                    Title = "OnetSkill4Title",
+                                    ONetElementId = "OnetElementId4",
+                                },
+                                ContextualisedSkill = new ContextualisedSkill
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Description = "ContextualisedSkillDesc4",
+                                    ONetAttributeType = "ContextualisedSkill attribute type 4",
+                                    OriginalRank = 123.0M,
+                                    ONetRank = 4.0M,
+                                },
                             },
                         },
-                        Summary = "Summary2",
                     },
                 },
-                new JobProfileSkillSegmentModel()
+                new JobProfileSkillSegmentModel
                 {
                     DocumentId = Article3Id,
                     CanonicalName = Article3Name,
@@ -149,35 +189,54 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.Data
                     Data = new JobProfileSkillSegmentDataModel
                     {
                         DigitalSkill = "DigitalSkill3",
-                        Restrictions = new List<GenericListContent>
+                        Restrictions = new List<Restriction>
                         {
-                            new GenericListContent{ Id = "1", Description = "Restrictions3a", Rank = 1},
-                            new GenericListContent{ Id = "2", Description = "Restrictions3b", Rank = 2},
+                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions3a", Description = "Restrictions3a", Rank = 1 },
+                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions3b", Description = "Restrictions3b", Rank = 2 },
                         },
                         OtherRequirements = "OtherRequirements3",
-                        RestrictionsSummary = "RestrictionsSummary3",
-                        Skills = new List<JobProfileSkillSegmentSkillDataModel>()
+                        Skills = new List<Skills>
                         {
-                            new JobProfileSkillSegmentSkillDataModel()
+                            new Skills
                             {
-                                Id = "id5",
-                                ContextualisedDescription = "ContextualisedDescription5",
-                                Rank = 5,
-                                StandardDescription = "StandardDescription5",
+                                OnetSkill = new OnetSkill
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Description = "OnetSkillDesc5",
+                                    Title = "OnetSkill5Title",
+                                    ONetElementId = "OnetElementId5",
+                                },
+                                ContextualisedSkill = new ContextualisedSkill
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Description = "ContextualisedSkillDesc5",
+                                    ONetAttributeType = "ContextualisedSkill attribute type 5",
+                                    OriginalRank = 123.0M,
+                                    ONetRank = 4.0M,
+                                },
                             },
-                            new JobProfileSkillSegmentSkillDataModel()
+                            new Skills
                             {
-                                Id = "id6",
-                                ContextualisedDescription = "ContextualisedDescription6",
-                                Rank = 6,
-                                StandardDescription = "StandardDescription6",
+                                OnetSkill = new OnetSkill
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Description = "OnetSkillDesc6",
+                                    Title = "OnetSkill6Title",
+                                    ONetElementId = "OnetElementId6",
+                                },
+                                ContextualisedSkill = new ContextualisedSkill
+                                {
+                                    Id = Guid.NewGuid(),
+                                    Description = "ContextualisedSkillDesc6",
+                                    ONetAttributeType = "ContextualisedSkill attribute type 6",
+                                    OriginalRank = 123.0M,
+                                    ONetRank = 4.0M,
+                                },
                             },
                         },
                     },
                 },
             };
-
-            return models;
         }
     }
 }

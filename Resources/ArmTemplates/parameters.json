@@ -2,12 +2,15 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "resourcePrefix": {
-            "value": "__resourcePrefix__"
-        },
+        "appServiceDomain": {
+            "value": "__appServiceDomain__"
+        },        
         "appSharedResourceGroup": {
             "value": "__appSharedResourceGroup__"
         },
+        "appSharedServiceBusName": {
+            "value": "__appSharedServiceBusName__"
+        },        
         "appSharedStorageAccountName": {
             "value": "__appSharedStorageAccountName__"
         },
@@ -26,9 +29,12 @@
         "cosmosDbKey": {
             "value": "__appSharedCosmosPrimaryKey__"
         },
-        "cosmosDbResourceGroup": {
-            "value": "__appSharedResourceGroup__"
-        },
+        "environment": {
+            "value": "__ReleaseEnvironmentName__",
+            "metadata": {
+                "comment": "Bug in tokenisation task prevents referencing Release.EnvironmentName directly.  https://github.com/TotalALM/VSTS-Tasks/issues/29"
+            }
+        },     
         "sharedAppServicePlanName": {
             "value": "__sharedAppServicePlanName__"
         },
@@ -37,6 +43,9 @@
         },
         "cosmosDbCollectionName": {
             "value": "__cosmosDbCollectionName__"
+        },
+        "cmsSubscriptionSqlFilter": {
+            "value": "__cmsSubscriptionSqlFilter__"
         }
     }
 }
