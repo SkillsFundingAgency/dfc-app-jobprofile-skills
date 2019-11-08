@@ -22,7 +22,6 @@ namespace DFC.App.JobProfileSkills.AutoMapperProfiles
         {
             CreateMap<JobProfileSkillSegmentDataModel, WhatItTakesApiModel>()
                 .ForMember(d => d.DigitalSkillsLevel, s => s.MapFrom(a => a.DigitalSkill))
-                .ForMember(d => d.Skills, s => s.MapFrom(a => a.Skills))
                 .ForMember(d => d.RestrictionsAndRequirements, s => s.MapFrom(a => a))
                 ;
 
