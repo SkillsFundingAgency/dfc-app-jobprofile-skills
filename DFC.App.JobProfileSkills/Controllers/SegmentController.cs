@@ -1,4 +1,5 @@
-﻿using DFC.App.JobProfileSkills.Data.Contracts;
+﻿using DFC.App.JobProfileSkills.ApiModels;
+using DFC.App.JobProfileSkills.Data.Contracts;
 using DFC.App.JobProfileSkills.Data.Models;
 using DFC.App.JobProfileSkills.Data.Models.PatchModels;
 using DFC.App.JobProfileSkills.Extensions;
@@ -99,7 +100,9 @@ namespace DFC.App.JobProfileSkills.Controllers
 
                 logger.LogInformation($"{BodyActionName} has succeeded for: {documentId}");
 
-                return this.NegotiateContentResult(viewModel, model.Data);
+                var apiModel = mapper.Map<WhatItTakesApiModel>(model.Data);
+
+                return this.NegotiateContentResult(viewModel, apiModel);
             }
 
             logger.LogWarning($"{BodyActionName} has returned no content for: {documentId}");
