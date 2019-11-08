@@ -1,7 +1,9 @@
-﻿using DFC.App.JobProfileSkills.Data.Models;
+﻿using DFC.App.JobProfileSkills.ApiModels;
+using DFC.App.JobProfileSkills.Data.Models;
 using DFC.App.JobProfileSkills.ViewModels;
 using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Net;
 using Xunit;
 
@@ -14,20 +16,20 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
         public async void ReturnsSuccessForHtmlMediaType(string mediaTypeName)
         {
             // Arrange
-            const string article = "an-article-name";
+            Guid documentId = Guid.NewGuid();
             var expectedResult = A.Fake<JobProfileSkillSegmentModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
-            expectedResult.CanonicalName = article;
+            expectedResult.CanonicalName = documentId.ToString();
 
-            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).Returns(expectedResult);
+            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByIdAsync(A<Guid>.Ignored)).Returns(expectedResult);
             A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).Returns(A.Fake<BodyViewModel>());
 
             // Act
-            var result = await controller.Body(article).ConfigureAwait(false);
+            var result = await controller.Body(documentId).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByIdAsync(A<Guid>.Ignored)).MustHaveHappenedOnceExactly();
             A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -41,24 +43,24 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
         public async void ReturnsSuccessForJsonMediaType(string mediaTypeName)
         {
             // Arrange
-            const string article = "an-article-name";
+            Guid documentId = Guid.NewGuid();
             var expectedResult = A.Fake<JobProfileSkillSegmentModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
-            expectedResult.CanonicalName = article;
+            expectedResult.CanonicalName = documentId.ToString();
 
-            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).Returns(expectedResult);
-            A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).Returns(A.Fake<BodyViewModel>());
+            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByIdAsync(A<Guid>.Ignored)).Returns(expectedResult);
+            A.CallTo(() => FakeMapper.Map<WhatItTakesApiModel>(A<JobProfileSkillSegmentDataModel>.Ignored)).Returns(A.Fake<WhatItTakesApiModel>());
 
             // Act
-            var result = await controller.Body(article).ConfigureAwait(false);
+            var result = await controller.Body(documentId).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByIdAsync(A<Guid>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeMapper.Map<WhatItTakesApiModel>(A<JobProfileSkillSegmentDataModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var jsonResult = Assert.IsType<OkObjectResult>(result);
-            var model = Assert.IsAssignableFrom<BodyViewModel>(jsonResult.Value);
+            var model = Assert.IsAssignableFrom<WhatItTakesApiModel>(jsonResult.Value);
 
             controller.Dispose();
         }
@@ -68,20 +70,20 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
         public async void ReturnsNotAcceptableForInvalidMediaType(string mediaTypeName)
         {
             // Arrange
-            const string article = "an-article-name";
+            Guid documentId = Guid.NewGuid();
             var expectedResult = A.Fake<JobProfileSkillSegmentModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
-            expectedResult.CanonicalName = article;
+            expectedResult.CanonicalName = documentId.ToString();
 
-            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).Returns(expectedResult);
+            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByIdAsync(A<Guid>.Ignored)).Returns(expectedResult);
             A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).Returns(A.Fake<BodyViewModel>());
 
             // Act
-            var result = await controller.Body(article).ConfigureAwait(false);
+            var result = await controller.Body(documentId).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByIdAsync(A<Guid>.Ignored)).MustHaveHappenedOnceExactly();
             A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var statusResult = Assert.IsType<StatusCodeResult>(result);

@@ -1,4 +1,5 @@
-﻿using DFC.App.JobProfileSkills.Data.Contracts;
+﻿using DFC.App.JobProfileSkills.ApiModels;
+using DFC.App.JobProfileSkills.Data.Contracts;
 using DFC.App.JobProfileSkills.Data.Models;
 using DFC.App.JobProfileSkills.Extensions;
 using DFC.App.JobProfileSkills.ViewModels;
@@ -80,23 +81,25 @@ namespace DFC.App.JobProfileSkills.Controllers
         }
 
         [HttpGet]
-        [Route("{controller}/{article}/contents")]
-        public async Task<IActionResult> Body(string article)
+        [Route("{controller}/{documentId}/contents")]
+        public async Task<IActionResult> Body(Guid documentId)
         {
-            logger.LogInformation($"{BodyActionName} has been called with: {article}");
+            logger.LogInformation($"{BodyActionName} has been called with: {documentId}");
 
-            var model = await jobProfileSkillSegmentService.GetByNameAsync(article, Request.IsDraftRequest()).ConfigureAwait(false);
+            var model = await jobProfileSkillSegmentService.GetByIdAsync(documentId).ConfigureAwait(false);
 
             if (model != null)
             {
                 var viewModel = mapper.Map<BodyViewModel>(model);
 
-                logger.LogInformation($"{BodyActionName} has succeeded for: {article}");
+                logger.LogInformation($"{BodyActionName} has succeeded for: {documentId}");
 
-                return this.NegotiateContentResult(viewModel, model.Data);
+                var apiModel = mapper.Map<WhatItTakesApiModel>(model.Data);
+
+                return this.NegotiateContentResult(viewModel, apiModel);
             }
 
-            logger.LogWarning($"{BodyActionName} has returned no content for: {article}");
+            logger.LogWarning($"{BodyActionName} has returned no content for: {documentId}");
 
             return NoContent();
         }
