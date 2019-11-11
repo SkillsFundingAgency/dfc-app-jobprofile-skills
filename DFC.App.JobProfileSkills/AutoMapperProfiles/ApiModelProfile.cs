@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using DFC.App.JobProfileSkills.ApiModels;
 using DFC.App.JobProfileSkills.Data.Models;
+using DFC.HtmlToDataTranslator.Contracts;
+using DFC.HtmlToDataTranslator.ValueConverters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +10,20 @@ using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileSkills.AutoMapperProfiles
 {
-    public class HtmlStringFormatter : IValueConverter<string, List<string>>
-    {
-        public List<string> Convert(string sourceMember, ResolutionContext context)
-        {
-            return new List<string> { sourceMember };
-        }
-    }
-
     public class ApiModelProfile : Profile
     {
+        private readonly HtmlToStringValueConverter htmlToStringValueConverter;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApiModelProfile"/> class.
+        /// Default constructor.
+        /// </summary>
+        /// <remarks>Do not delete - as its needed by the tests</remarks>
         public ApiModelProfile()
+        {
+        }
+
+        public ApiModelProfile(HtmlToStringValueConverter htmlToStringValueConverter)
         {
             CreateMap<JobProfileSkillSegmentDataModel, WhatItTakesApiModel>()
                 .ForMember(d => d.DigitalSkillsLevel, s => s.MapFrom(a => a.DigitalSkill))
@@ -26,7 +31,7 @@ namespace DFC.App.JobProfileSkills.AutoMapperProfiles
                 ;
 
             CreateMap<JobProfileSkillSegmentDataModel, RestrictionsAndRequirementsApiModel>()
-                .ForMember(d => d.OtherRequirements, opt => opt.ConvertUsing(new HtmlStringFormatter()))
+                .ForMember(d => d.OtherRequirements, opt => opt.ConvertUsing(htmlToStringValueConverter))
                 .ForMember(d => d.RelatedRestrictions, s => s.MapFrom(a => a.Restrictions.Select(b => b.Description).ToList()))
                 ;
 
@@ -36,6 +41,7 @@ namespace DFC.App.JobProfileSkills.AutoMapperProfiles
                 .ForMember(d => d.ONetRank, s => s.MapFrom(a => a.ContextualisedSkill.ONetRank))
                 .ForMember(d => d.ONetElementId, s => s.MapFrom(a => a.OnetSkill.ONetElementId))
                 ;
+            this.htmlToStringValueConverter = htmlToStringValueConverter;
         }
     }
 }

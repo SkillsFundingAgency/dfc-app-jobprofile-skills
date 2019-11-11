@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
+using DFC.App.JobProfileSkills.AutoMapperProfiles;
 using DFC.App.JobProfileSkills.Data.Contracts;
 using DFC.App.JobProfileSkills.Data.Models;
 using DFC.App.JobProfileSkills.Data.ServiceBusModels;
 using DFC.App.JobProfileSkills.DraftSegmentService;
 using DFC.App.JobProfileSkills.Repository.CosmosDb;
 using DFC.App.JobProfileSkills.SegmentService;
+using DFC.HtmlToDataTranslator.Contracts;
+using DFC.HtmlToDataTranslator.Services;
+using DFC.HtmlToDataTranslator.ValueConverters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -52,7 +56,28 @@ namespace DFC.App.JobProfileSkills
             services.AddSingleton<IJobProfileSkillSegmentService, JobProfileSkillSegmentService>();
             services.AddSingleton<IDraftJobProfileSkillSegmentService, DraftJobProfileSkillSegmentService>();
             services.AddSingleton<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>, JobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
-            services.AddAutoMapper(typeof(Startup).Assembly);
+            services.AddTransient<IHtmlToDataTranslator, HtmlAgilityPackDataTranslator>();
+            services.AddTransient<HtmlToStringValueConverter>();
+
+            //Register all profiles as singletons with DI
+            services.AddSingleton<ApiModelProfile>();
+            services.AddSingleton<JobProfileSkillSegmentProfile>();
+
+            //Create mapper and add profiles using DI
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                var serviceProvider = services.BuildServiceProvider();
+
+                var apiModelProfile = serviceProvider.GetService<ApiModelProfile>();
+                mc.AddProfile(apiModelProfile);
+
+                var jobProfileSkillSegmentProfile = serviceProvider.GetService<JobProfileSkillSegmentProfile>();
+                mc.AddProfile(jobProfileSkillSegmentProfile);
+            });
+
+            //Add the mapper as a singleton
+            var mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
