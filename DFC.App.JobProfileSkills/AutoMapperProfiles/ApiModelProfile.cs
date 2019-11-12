@@ -1,32 +1,27 @@
 ﻿using AutoMapper;
 using DFC.App.JobProfileSkills.ApiModels;
 using DFC.App.JobProfileSkills.Data.Models;
-using System;
-using System.Collections.Generic;
+using DFC.HtmlToDataTranslator.Services;
+using DFC.HtmlToDataTranslator.ValueConverters;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileSkills.AutoMapperProfiles
 {
-    public class HtmlStringFormatter : IValueConverter<string, List<string>>
-    {
-        public List<string> Convert(string sourceMember, ResolutionContext context)
-        {
-            return new List<string> { sourceMember };
-        }
-    }
-
     public class ApiModelProfile : Profile
     {
+        private readonly HtmlToStringValueConverter htmlToStringValueConverter;
+
         public ApiModelProfile()
         {
+            htmlToStringValueConverter = new HtmlToStringValueConverter(new HtmlAgilityPackDataTranslator());
+
             CreateMap<JobProfileSkillSegmentDataModel, WhatItTakesApiModel>()
                 .ForMember(d => d.DigitalSkillsLevel, s => s.MapFrom(a => a.DigitalSkill))
                 .ForMember(d => d.RestrictionsAndRequirements, s => s.MapFrom(a => a))
                 ;
 
             CreateMap<JobProfileSkillSegmentDataModel, RestrictionsAndRequirementsApiModel>()
-                .ForMember(d => d.OtherRequirements, opt => opt.ConvertUsing(new HtmlStringFormatter()))
+                .ForMember(d => d.OtherRequirements, opt => opt.ConvertUsing(htmlToStringValueConverter))
                 .ForMember(d => d.RelatedRestrictions, s => s.MapFrom(a => a.Restrictions.Select(b => b.Description).ToList()))
                 ;
 

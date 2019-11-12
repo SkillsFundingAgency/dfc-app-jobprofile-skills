@@ -5,6 +5,7 @@ using DFC.App.JobProfileSkills.Data.ServiceBusModels;
 using DFC.App.JobProfileSkills.DraftSegmentService;
 using DFC.App.JobProfileSkills.Repository.CosmosDb;
 using DFC.App.JobProfileSkills.SegmentService;
+using DFC.HtmlToDataTranslator.ValueConverters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
