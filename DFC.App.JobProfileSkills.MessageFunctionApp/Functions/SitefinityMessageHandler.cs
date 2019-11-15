@@ -61,10 +61,10 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Functions
                 case HttpStatusCode.Created:
                     log.LogInformation($"{ClassFullName}: JobProfile Id: {messageContentId}: Created segment");
                     break;
-                    
+
                 case HttpStatusCode.AlreadyReported:
-                   log.LogInformation($"{ClassFullName}: JobProfile Id: {messageContentId}: Segment previously updated");
-                   break;
+                    log.LogInformation($"{ClassFullName}: JobProfile Id: {messageContentId}: Segment previously updated");
+                    break;
 
                 default:
                     log.LogWarning($"{ClassFullName}: JobProfile Id: {messageContentId}: Segment not Posted: Status: {result}");

@@ -81,8 +81,8 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.Data
                         DigitalSkill = "DigitalSkill1",
                         Restrictions = new List<Restriction>
                         {
-                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions1a", Description = "Restrictions1a", Rank = 1 },
-                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions1b", Description = "Restrictions1b", Rank = 2 },
+                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions1a", Description = "Restrictions1a" },
+                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions1b", Description = "Restrictions1b" },
                         },
                         OtherRequirements = "OtherRequirements1",
                         Skills = new List<Skills>
@@ -136,8 +136,8 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.Data
                         DigitalSkill = "DigitalSkill2",
                         Restrictions = new List<Restriction>
                         {
-                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions2a", Description = "Restrictions2a", Rank = 1 },
-                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions2b", Description = "Restrictions2b", Rank = 2 },
+                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions2a", Description = "Restrictions2a" },
+                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions2b", Description = "Restrictions2b" },
                         },
                         OtherRequirements = "OtherRequirements2",
                         Skills = new List<Skills>
@@ -191,8 +191,8 @@ namespace DFC.App.JobProfileSkills.IntegrationTests.Data
                         DigitalSkill = "DigitalSkill3",
                         Restrictions = new List<Restriction>
                         {
-                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions3a", Description = "Restrictions3a", Rank = 1 },
-                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions3b", Description = "Restrictions3b", Rank = 2 },
+                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions3a", Description = "Restrictions3a" },
+                            new Restriction { Id = Guid.NewGuid(), Title = "Restrictions3b", Description = "Restrictions3b" },
                         },
                         OtherRequirements = "OtherRequirements3",
                         Skills = new List<Skills>
