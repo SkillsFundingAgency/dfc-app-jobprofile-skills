@@ -31,8 +31,7 @@ namespace DFC.App.JobProfileSkills.AutoMapperProfiles
                 .ForMember(d => d.JobProfileId, s => s.MapFrom(a => a.DocumentId))
                 .ForMember(d => d.Segment, s => s.MapFrom(a => JobProfileSkillSegmentDataModel.SegmentName));
 
-            CreateMap<PatchRestrictionModel, Data.Models.Restriction>()
-                .ForMember(d => d.Rank, s => s.Ignore());
+            CreateMap<PatchRestrictionModel, Data.Models.Restriction>();
 
             CreateMap<PatchOnetSkillModel, OnetSkill>();
 
