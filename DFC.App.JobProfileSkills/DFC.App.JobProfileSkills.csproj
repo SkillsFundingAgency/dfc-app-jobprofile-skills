@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <ProjectGuid>{8395B35A-F44B-43D5-BD28-C2D60FDC191B}</ProjectGuid>
     <CodeAnalysisRuleSet>../DFC.Digital.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
