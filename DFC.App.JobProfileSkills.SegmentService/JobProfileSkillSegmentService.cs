@@ -41,7 +41,7 @@ namespace DFC.App.JobProfileSkills.SegmentService
             return await repository.GetAsync(d => d.DocumentId == documentId).ConfigureAwait(false);
         }
 
-        public async Task<JobProfileSkillSegmentModel> GetByNameAsync(string canonicalName, bool isDraft = false)
+        public async Task<JobProfileSkillSegmentModel> GetByNameAsync(string canonicalName)
         {
             if (string.IsNullOrWhiteSpace(canonicalName))
             {

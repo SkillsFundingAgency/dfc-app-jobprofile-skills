@@ -70,7 +70,7 @@ namespace DFC.App.JobProfileSkills.Controllers
         {
             logger.LogInformation($"{DocumentActionName} has been called with: {article}");
 
-            var model = await jobProfileSkillSegmentService.GetByNameAsync(article, Request.IsDraftRequest()).ConfigureAwait(false);
+            var model = await jobProfileSkillSegmentService.GetByNameAsync(article).ConfigureAwait(false);
 
             if (model != null)
             {
