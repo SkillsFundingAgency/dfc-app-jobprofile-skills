@@ -18,8 +18,8 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
                 OtherRequirements = "OtherRequirements1",
                 Restrictions = new List<RestrictionViewModel>
                 {
-                    new RestrictionViewModel { Id = "1", Title = "Restrictions1", Rank = 1 },
-                    new RestrictionViewModel { Id = "2", Title = "Restrictions2", Rank = 2 },
+                    new RestrictionViewModel { Id = "1", Title = "Restrictions1" },
+                    new RestrictionViewModel { Id = "2", Title = "Restrictions2" },
                 },
             };
 
