@@ -2,7 +2,6 @@
 using DFC.App.JobProfileSkills.Data.Contracts;
 using DFC.App.JobProfileSkills.Data.Models;
 using DFC.App.JobProfileSkills.Data.ServiceBusModels;
-using DFC.App.JobProfileSkills.DraftSegmentService;
 using DFC.App.JobProfileSkills.Repository.CosmosDb;
 using DFC.App.JobProfileSkills.SegmentService;
 using DFC.HtmlToDataTranslator.ValueConverters;
@@ -51,7 +50,6 @@ namespace DFC.App.JobProfileSkills
             services.AddSingleton<IDocumentClient>(documentClient);
             services.AddSingleton<ICosmosRepository<JobProfileSkillSegmentModel>, CosmosRepository<JobProfileSkillSegmentModel>>();
             services.AddSingleton<IJobProfileSkillSegmentService, JobProfileSkillSegmentService>();
-            services.AddSingleton<IDraftJobProfileSkillSegmentService, DraftJobProfileSkillSegmentService>();
             services.AddSingleton<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>, JobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
             services.AddAutoMapper(typeof(Startup).Assembly);
 

@@ -7,10 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.Data", "DFC.App.JobProfileSkills.Data\DFC.App.JobProfileSkills.Data.csproj", "{9B80C9F6-87FC-4AC5-B827-F537507709DB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.DraftSegmentService", "DFC.App.JobProfileSkills.DraftSegmentService\DFC.App.JobProfileSkills.DraftSegmentService.csproj", "{0A0B0D52-84F0-4964-9DDF-3B1BEAE0A13C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.DraftSegmentService.UnitTests", "DFC.App.JobProfileSkills.DraftSegmentService.UnitTests\DFC.App.JobProfileSkills.DraftSegmentService.UnitTests.csproj", "{E2041B5C-7D29-42CB-AE8B-5DAD0BAD0DB9}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.IntegrationTests", "DFC.App.JobProfileSkills.IntegrationTests\DFC.App.JobProfileSkills.IntegrationTests.csproj", "{72E41B99-3885-498A-AC55-E75F07D07248}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.Repository.CosmosDb", "DFC.App.JobProfileSkills.Repository.CosmosDb\DFC.App.JobProfileSkills.Repository.CosmosDb.csproj", "{FDD2A7C9-790E-4846-BB1B-64784133296D}"
@@ -77,14 +73,6 @@ Global
 		{9B80C9F6-87FC-4AC5-B827-F537507709DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B80C9F6-87FC-4AC5-B827-F537507709DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B80C9F6-87FC-4AC5-B827-F537507709DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0A0B0D52-84F0-4964-9DDF-3B1BEAE0A13C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0A0B0D52-84F0-4964-9DDF-3B1BEAE0A13C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0A0B0D52-84F0-4964-9DDF-3B1BEAE0A13C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0A0B0D52-84F0-4964-9DDF-3B1BEAE0A13C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E2041B5C-7D29-42CB-AE8B-5DAD0BAD0DB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2041B5C-7D29-42CB-AE8B-5DAD0BAD0DB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2041B5C-7D29-42CB-AE8B-5DAD0BAD0DB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2041B5C-7D29-42CB-AE8B-5DAD0BAD0DB9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{72E41B99-3885-498A-AC55-E75F07D07248}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72E41B99-3885-498A-AC55-E75F07D07248}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72E41B99-3885-498A-AC55-E75F07D07248}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -127,8 +115,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9B80C9F6-87FC-4AC5-B827-F537507709DB} = {C647682A-032D-4984-A820-92DF0A80FE11}
-		{0A0B0D52-84F0-4964-9DDF-3B1BEAE0A13C} = {5B7D387D-D6D4-4E34-8F6F-CD639B169EA2}
-		{E2041B5C-7D29-42CB-AE8B-5DAD0BAD0DB9} = {681BDE1E-B65A-4633-8C60-FA08ED1B2AFB}
 		{72E41B99-3885-498A-AC55-E75F07D07248} = {D2D6CDB7-A7E5-4A0B-BC9A-ABB79D48C666}
 		{FDD2A7C9-790E-4846-BB1B-64784133296D} = {BC33DC54-1A36-4DD4-9858-427CA8884ABF}
 		{3D8D644C-5B32-485E-8246-40342ED77FFC} = {BC33DC54-1A36-4DD4-9858-427CA8884ABF}

@@ -19,14 +19,14 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
             var expectedResult = A.Fake<JobProfileSkillSegmentModel>();
             var controller = BuildSegmentController(mediaTypeName);
 
-            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).Returns(expectedResult);
+            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByNameAsync(A<string>.Ignored)).Returns(expectedResult);
             A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).Returns(A.Fake<DocumentViewModel>());
 
             // Act
             var result = await controller.Document(article).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByNameAsync(A<string>.Ignored)).MustHaveHappenedOnceExactly();
             A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -44,13 +44,13 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
             JobProfileSkillSegmentModel expectedResult = null;
             var controller = BuildSegmentController(mediaTypeName);
 
-            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).Returns(expectedResult);
+            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByNameAsync(A<string>.Ignored)).Returns(expectedResult);
 
             // Act
             var result = await controller.Document(article).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByNameAsync(A<string>.Ignored, A<bool>.Ignored)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeJobProfileSkillSegmentService.GetByNameAsync(A<string>.Ignored)).MustHaveHappenedOnceExactly();
 
             var statusResult = Assert.IsType<NoContentResult>(result);
 
