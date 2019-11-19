@@ -3,6 +3,7 @@ using DFC.App.JobProfileSkills.Data.Models;
 using DFC.App.JobProfileSkills.Data.Models.PatchModels;
 using DFC.App.JobProfileSkills.Data.ServiceBusModels;
 using DFC.App.JobProfileSkills.ViewModels;
+using System.Linq;
 
 namespace DFC.App.JobProfileSkills.AutoMapperProfiles
 {
@@ -17,7 +18,7 @@ namespace DFC.App.JobProfileSkills.AutoMapperProfiles
             CreateMap<JobProfileSkillSegmentModel, BodyViewModel>();
 
             CreateMap<JobProfileSkillSegmentDataModel, BodyDataViewModel>()
-                .ForMember(d => d.Skills, s => s.MapFrom(a => a.Skills));
+                .ForMember(d => d.Skills, s => s.MapFrom(a => a.Skills.Take(8)));
 
             CreateMap<Skills, SkillsViewModel>();
 
