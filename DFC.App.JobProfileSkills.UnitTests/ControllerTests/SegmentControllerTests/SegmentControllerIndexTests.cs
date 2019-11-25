@@ -19,15 +19,16 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
             const int resultsCount = 2;
             var expectedResults = A.CollectionOfFake<JobProfileSkillSegmentModel>(resultsCount);
             var controller = BuildSegmentController(mediaTypeName);
+            var indexDocumentViewModel = new IndexDocumentViewModel { CanonicalName = "job-profile-1" };
 
-            A.CallTo(() => FakeJobProfileSkillSegmentService.GetAllAsync()).Returns(expectedResults);
-            A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).Returns(A.Fake<IndexDocumentViewModel>());
+            A.CallTo(() => FakeSkillSegmentService.GetAllAsync()).Returns(expectedResults);
+            A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).Returns(indexDocumentViewModel);
 
             // Act
             var result = await controller.Index().ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSkillSegmentService.GetAllAsync()).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeSkillSegmentService.GetAllAsync()).MustHaveHappenedOnceExactly();
             A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).MustHaveHappened(resultsCount, Times.Exactly);
 
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -45,15 +46,16 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
             // Arrange
             IEnumerable<JobProfileSkillSegmentModel> expectedResults = null;
             var controller = BuildSegmentController(mediaTypeName);
+            var indexDocumentViewModel = new IndexDocumentViewModel { CanonicalName = "job-profile-1" };
 
-            A.CallTo(() => FakeJobProfileSkillSegmentService.GetAllAsync()).Returns(expectedResults);
-            A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).Returns(A.Fake<IndexDocumentViewModel>());
+            A.CallTo(() => FakeSkillSegmentService.GetAllAsync()).Returns(expectedResults);
+            A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).Returns(indexDocumentViewModel);
 
             // Act
             var result = await controller.Index().ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSkillSegmentService.GetAllAsync()).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeSkillSegmentService.GetAllAsync()).MustHaveHappenedOnceExactly();
             A.CallTo(() => FakeMapper.Map<IndexDocumentViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).MustNotHaveHappened();
 
             var viewResult = Assert.IsType<ViewResult>(result);

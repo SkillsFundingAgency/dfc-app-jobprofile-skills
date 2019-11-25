@@ -28,7 +28,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
 
             A.CallTo(() => repository.PingAsync()).Returns(expectedResult);
 
-            var skillSegmentService = new JobProfileSkillSegmentService(repository, mapper, jobProfileSegmentRefreshService);
+            var skillSegmentService = new SkillSegmentService(repository, mapper, jobProfileSegmentRefreshService);
 
             // act
             var result = await skillSegmentService.PingAsync().ConfigureAwait(false);
@@ -47,7 +47,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
 
             A.CallTo(() => repository.PingAsync()).Returns(expectedResult);
 
-            var skillSegmentService = new JobProfileSkillSegmentService(repository, mapper, jobProfileSegmentRefreshService);
+            var skillSegmentService = new SkillSegmentService(repository, mapper, jobProfileSegmentRefreshService);
 
             // act
             var result = await skillSegmentService.PingAsync().ConfigureAwait(false);

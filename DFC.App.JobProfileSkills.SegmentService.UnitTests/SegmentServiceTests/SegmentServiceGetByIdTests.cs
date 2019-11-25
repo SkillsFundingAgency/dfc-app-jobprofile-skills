@@ -13,7 +13,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
     public class SegmentServiceGetByIdTests
     {
         private readonly ICosmosRepository<JobProfileSkillSegmentModel> repository;
-        private readonly IJobProfileSkillSegmentService jobProfileSkillSegmentService;
+        private readonly ISkillSegmentService skillSegmentService;
 
         public SegmentServiceGetByIdTests()
         {
@@ -21,11 +21,11 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
             var mapper = A.Fake<AutoMapper.IMapper>();
 
             repository = A.Fake<ICosmosRepository<JobProfileSkillSegmentModel>>();
-            jobProfileSkillSegmentService = new JobProfileSkillSegmentService(repository, mapper, jobProfileSegmentRefreshService);
+            skillSegmentService = new SkillSegmentService(repository, mapper, jobProfileSegmentRefreshService);
         }
 
         [Fact]
-        public async Task SegmentServiceGetByIdReturnsSuccess()
+        public async Task GetByIdReturnsSuccess()
         {
             // arrange
             var documentId = Guid.NewGuid();
@@ -34,7 +34,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
             A.CallTo(() => repository.GetAsync(A<Expression<Func<JobProfileSkillSegmentModel, bool>>>.Ignored)).Returns(expectedResult);
 
             // act
-            var result = await jobProfileSkillSegmentService.GetByIdAsync(documentId).ConfigureAwait(false);
+            var result = await skillSegmentService.GetByIdAsync(documentId).ConfigureAwait(false);
 
             // assert
             A.CallTo(() => repository.GetAsync(A<Expression<Func<JobProfileSkillSegmentModel, bool>>>.Ignored)).MustHaveHappenedOnceExactly();
@@ -42,7 +42,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
         }
 
         [Fact]
-        public async Task SegmentServiceGetByIdReturnsNullWhenMissingInRepository()
+        public async Task GetByIdReturnsNullWhenMissingInRepository()
         {
             // arrange
             var documentId = Guid.NewGuid();
@@ -51,7 +51,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
             A.CallTo(() => repository.GetAsync(A<Expression<Func<JobProfileSkillSegmentModel, bool>>>.Ignored)).Returns(expectedResult);
 
             // act
-            var result = await jobProfileSkillSegmentService.GetByIdAsync(documentId).ConfigureAwait(false);
+            var result = await skillSegmentService.GetByIdAsync(documentId).ConfigureAwait(false);
 
             // assert
             A.CallTo(() => repository.GetAsync(A<Expression<Func<JobProfileSkillSegmentModel, bool>>>.Ignored)).MustHaveHappenedOnceExactly();

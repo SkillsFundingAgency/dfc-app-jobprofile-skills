@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileSkills.Data.Contracts
 {
-    public interface IJobProfileSkillSegmentService
+    public interface ISkillSegmentService
     {
         Task<bool> PingAsync();
 

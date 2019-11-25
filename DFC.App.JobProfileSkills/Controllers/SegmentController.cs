@@ -27,13 +27,13 @@ namespace DFC.App.JobProfileSkills.Controllers
         private const string PatchRestrictionActionName = nameof(PatchRestriction);
 
         private readonly ILogger<SegmentController> logger;
-        private readonly IJobProfileSkillSegmentService jobProfileSkillSegmentService;
+        private readonly ISkillSegmentService skillSegmentService;
         private readonly AutoMapper.IMapper mapper;
 
-        public SegmentController(ILogger<SegmentController> logger, IJobProfileSkillSegmentService jobProfileSkillSegmentService, AutoMapper.IMapper mapper)
+        public SegmentController(ILogger<SegmentController> logger, ISkillSegmentService skillSegmentService, AutoMapper.IMapper mapper)
         {
             this.logger = logger;
-            this.jobProfileSkillSegmentService = jobProfileSkillSegmentService;
+            this.skillSegmentService = skillSegmentService;
             this.mapper = mapper;
         }
 
@@ -45,7 +45,7 @@ namespace DFC.App.JobProfileSkills.Controllers
             logger.LogInformation($"{IndexActionName} has been called");
 
             var viewModel = new IndexViewModel();
-            var segmentModels = await jobProfileSkillSegmentService.GetAllAsync().ConfigureAwait(false);
+            var segmentModels = await skillSegmentService.GetAllAsync().ConfigureAwait(false);
 
             if (segmentModels != null)
             {
@@ -70,7 +70,7 @@ namespace DFC.App.JobProfileSkills.Controllers
         {
             logger.LogInformation($"{DocumentActionName} has been called with: {article}");
 
-            var model = await jobProfileSkillSegmentService.GetByNameAsync(article).ConfigureAwait(false);
+            var model = await skillSegmentService.GetByNameAsync(article).ConfigureAwait(false);
 
             if (model != null)
             {
@@ -92,7 +92,7 @@ namespace DFC.App.JobProfileSkills.Controllers
         {
             logger.LogInformation($"{BodyActionName} has been called with: {documentId}");
 
-            var model = await jobProfileSkillSegmentService.GetByIdAsync(documentId).ConfigureAwait(false);
+            var model = await skillSegmentService.GetByIdAsync(documentId).ConfigureAwait(false);
 
             if (model != null)
             {
@@ -126,13 +126,13 @@ namespace DFC.App.JobProfileSkills.Controllers
                 return BadRequest(ModelState);
             }
 
-            var existingDocument = await jobProfileSkillSegmentService.GetByIdAsync(jobProfileSkillSegmentModel.DocumentId).ConfigureAwait(false);
+            var existingDocument = await skillSegmentService.GetByIdAsync(jobProfileSkillSegmentModel.DocumentId).ConfigureAwait(false);
             if (existingDocument != null)
             {
                 return new StatusCodeResult((int)HttpStatusCode.AlreadyReported);
             }
 
-            var response = await jobProfileSkillSegmentService.UpsertAsync(jobProfileSkillSegmentModel).ConfigureAwait(false);
+            var response = await skillSegmentService.UpsertAsync(jobProfileSkillSegmentModel).ConfigureAwait(false);
 
             logger.LogInformation($"{PostActionName} has upserted content for: {jobProfileSkillSegmentModel.CanonicalName}");
 
@@ -155,7 +155,7 @@ namespace DFC.App.JobProfileSkills.Controllers
                 return BadRequest(ModelState);
             }
 
-            var existingDocument = await jobProfileSkillSegmentService.GetByIdAsync(jobProfileSkillSegmentModel.DocumentId).ConfigureAwait(false);
+            var existingDocument = await skillSegmentService.GetByIdAsync(jobProfileSkillSegmentModel.DocumentId).ConfigureAwait(false);
             if (existingDocument == null)
             {
                 return new StatusCodeResult((int)HttpStatusCode.NotFound);
@@ -169,7 +169,7 @@ namespace DFC.App.JobProfileSkills.Controllers
             jobProfileSkillSegmentModel.Etag = existingDocument.Etag;
             jobProfileSkillSegmentModel.SocLevelTwo = existingDocument.SocLevelTwo;
 
-            var response = await jobProfileSkillSegmentService.UpsertAsync(jobProfileSkillSegmentModel).ConfigureAwait(false);
+            var response = await skillSegmentService.UpsertAsync(jobProfileSkillSegmentModel).ConfigureAwait(false);
 
             return new StatusCodeResult((int)response);
         }
@@ -190,7 +190,7 @@ namespace DFC.App.JobProfileSkills.Controllers
                 return BadRequest(ModelState);
             }
 
-            var response = await jobProfileSkillSegmentService.PatchDigitalSkillAsync(patchDigitalSkillModel, documentId).ConfigureAwait(false);
+            var response = await skillSegmentService.PatchDigitalSkillAsync(patchDigitalSkillModel, documentId).ConfigureAwait(false);
             if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
             {
                 logger.LogError($"{PatchDigitalSkillActionName}: Error while patching Digital Skill Level content for Job Profile with Id: {patchDigitalSkillModel.JobProfileId} for {patchDigitalSkillModel.Title} ");
@@ -215,7 +215,7 @@ namespace DFC.App.JobProfileSkills.Controllers
                 return BadRequest(ModelState);
             }
 
-            var response = await jobProfileSkillSegmentService.PatchOnetSkillAsync(patchOnetSkillModel, documentId).ConfigureAwait(false);
+            var response = await skillSegmentService.PatchOnetSkillAsync(patchOnetSkillModel, documentId).ConfigureAwait(false);
             if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
             {
                 logger.LogError($"{PatchOnetSkillActionName}: Error while patching Related Skill content for Job Profile with Id: {patchOnetSkillModel.JobProfileId} for {patchOnetSkillModel.Title} ");
@@ -240,7 +240,7 @@ namespace DFC.App.JobProfileSkills.Controllers
                 return BadRequest(ModelState);
             }
 
-            var response = await jobProfileSkillSegmentService.PatchSkillsMatrixAsync(patchContextualisedModel, documentId).ConfigureAwait(false);
+            var response = await skillSegmentService.PatchSkillsMatrixAsync(patchContextualisedModel, documentId).ConfigureAwait(false);
             if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
             {
                 logger.LogError($"{PatchSkillsMatrixActionName}: Error while patching Skills Matrix content for Job Profile with Id: {patchContextualisedModel.JobProfileId} for {patchContextualisedModel.Description} ");
@@ -265,7 +265,7 @@ namespace DFC.App.JobProfileSkills.Controllers
                 return BadRequest(ModelState);
             }
 
-            var response = await jobProfileSkillSegmentService.PatchRestrictionAsync(patchRestrictionModel, documentId).ConfigureAwait(false);
+            var response = await skillSegmentService.PatchRestrictionAsync(patchRestrictionModel, documentId).ConfigureAwait(false);
             if (response != HttpStatusCode.OK && response != HttpStatusCode.Created)
             {
                 logger.LogError($"{PatchRestrictionActionName}: Error while patching Skills Matrix content for Job Profile with Id: {patchRestrictionModel.JobProfileId} for {patchRestrictionModel.Title} ");
@@ -280,7 +280,7 @@ namespace DFC.App.JobProfileSkills.Controllers
         {
             logger.LogInformation($"{DeleteActionName} has been called");
 
-            var isDeleted = await jobProfileSkillSegmentService.DeleteAsync(documentId).ConfigureAwait(false);
+            var isDeleted = await skillSegmentService.DeleteAsync(documentId).ConfigureAwait(false);
             if (isDeleted)
             {
                 logger.LogInformation($"{DeleteActionName} has deleted content for document Id: {documentId}");
