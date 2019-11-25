@@ -13,13 +13,13 @@ using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileSkills.SegmentService
 {
-    public class JobProfileSkillSegmentService : IJobProfileSkillSegmentService
+    public class SkillSegmentService : ISkillSegmentService
     {
         private readonly ICosmosRepository<JobProfileSkillSegmentModel> repository;
         private readonly IMapper mapper;
         private readonly IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> jobProfileSegmentRefreshService;
 
-        public JobProfileSkillSegmentService(ICosmosRepository<JobProfileSkillSegmentModel> repository, IMapper mapper, IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> jobProfileSegmentRefreshService)
+        public SkillSegmentService(ICosmosRepository<JobProfileSkillSegmentModel> repository, IMapper mapper, IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> jobProfileSegmentRefreshService)
         {
             this.repository = repository;
             this.mapper = mapper;
@@ -80,7 +80,6 @@ namespace DFC.App.JobProfileSkills.SegmentService
             }
 
             var existingSegmentModel = await GetByIdAsync(documentId).ConfigureAwait(false);
-
             if (existingSegmentModel == null)
             {
                 return HttpStatusCode.NotFound;

@@ -13,7 +13,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
     public class SegmentServiceGetByNameTests
     {
         private readonly ICosmosRepository<JobProfileSkillSegmentModel> repository;
-        private readonly IJobProfileSkillSegmentService jobProfileSkillSegmentService;
+        private readonly ISkillSegmentService skillSegmentService;
 
         public SegmentServiceGetByNameTests()
         {
@@ -21,7 +21,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
             var mapper = A.Fake<AutoMapper.IMapper>();
 
             repository = A.Fake<ICosmosRepository<JobProfileSkillSegmentModel>>();
-            jobProfileSkillSegmentService = new JobProfileSkillSegmentService(repository, mapper, jobProfileSegmentRefreshService);
+            skillSegmentService = new SkillSegmentService(repository, mapper, jobProfileSegmentRefreshService);
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
             A.CallTo(() => repository.GetAsync(A<Expression<Func<JobProfileSkillSegmentModel, bool>>>.Ignored)).Returns(expectedResult);
 
             // act
-            var result = await jobProfileSkillSegmentService.GetByNameAsync("article-name").ConfigureAwait(false);
+            var result = await skillSegmentService.GetByNameAsync("article-name").ConfigureAwait(false);
 
             // assert
             A.CallTo(() => repository.GetAsync(A<Expression<Func<JobProfileSkillSegmentModel, bool>>>.Ignored)).MustHaveHappenedOnceExactly();
@@ -46,7 +46,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
             // arrange
 
             // act
-            var exceptionResult = await Assert.ThrowsAsync<ArgumentNullException>(async () => await jobProfileSkillSegmentService.GetByNameAsync(null).ConfigureAwait(false)).ConfigureAwait(false);
+            var exceptionResult = await Assert.ThrowsAsync<ArgumentNullException>(async () => await skillSegmentService.GetByNameAsync(null).ConfigureAwait(false)).ConfigureAwait(false);
 
             // assert
             Assert.Equal("Value cannot be null.\r\nParameter name: canonicalName", exceptionResult.Message);
@@ -59,7 +59,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
             A.CallTo(() => repository.GetAsync(A<Expression<Func<JobProfileSkillSegmentModel, bool>>>.Ignored)).Returns((JobProfileSkillSegmentModel)null);
 
             // act
-            var result = await jobProfileSkillSegmentService.GetByNameAsync("article-name").ConfigureAwait(false);
+            var result = await skillSegmentService.GetByNameAsync("article-name").ConfigureAwait(false);
 
             // assert
             A.CallTo(() => repository.GetAsync(A<Expression<Func<JobProfileSkillSegmentModel, bool>>>.Ignored)).MustHaveHappenedOnceExactly();
