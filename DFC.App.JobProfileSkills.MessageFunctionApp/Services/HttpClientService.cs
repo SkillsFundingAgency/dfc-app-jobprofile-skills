@@ -85,7 +85,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
             var url = new Uri($"{segmentClientOptions?.BaseAddress}segment/{id}");
             var response = await httpClient.DeleteAsync(url).ConfigureAwait(false);
 
-            if (!response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound)
             {
                 var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 logger.LogError($"Failure status code '{response.StatusCode}' received with content '{responseContent}', for DELETE, Id: {id}.");

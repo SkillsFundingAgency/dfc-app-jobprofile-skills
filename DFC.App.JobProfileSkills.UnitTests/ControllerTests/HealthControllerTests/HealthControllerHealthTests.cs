@@ -20,13 +20,13 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.HealthControllerTes
             var expectedResult = true;
             var controller = BuildHealthController(MediaTypeNames.Application.Json);
 
-            A.CallTo(() => JobProfileSkillSegmentService.PingAsync()).Returns(expectedResult);
+            A.CallTo(() => SkillSegmentService.PingAsync()).Returns(expectedResult);
 
             // Act
             var result = await controller.Health().ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => JobProfileSkillSegmentService.PingAsync()).MustHaveHappenedOnceExactly();
+            A.CallTo(() => SkillSegmentService.PingAsync()).MustHaveHappenedOnceExactly();
 
             var jsonResult = Assert.IsType<OkObjectResult>(result);
             var model = Assert.IsAssignableFrom<HealthViewModel>(jsonResult.Value);
@@ -46,13 +46,13 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.HealthControllerTes
             var expectedResult = false;
             var controller = BuildHealthController(MediaTypeNames.Application.Json);
 
-            A.CallTo(() => JobProfileSkillSegmentService.PingAsync()).Returns(expectedResult);
+            A.CallTo(() => SkillSegmentService.PingAsync()).Returns(expectedResult);
 
             // Act
             var result = await controller.Health().ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => JobProfileSkillSegmentService.PingAsync()).MustHaveHappenedOnceExactly();
+            A.CallTo(() => SkillSegmentService.PingAsync()).MustHaveHappenedOnceExactly();
 
             var statusResult = Assert.IsType<StatusCodeResult>(result);
 
@@ -67,13 +67,13 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.HealthControllerTes
             // Arrange
             var controller = BuildHealthController(MediaTypeNames.Application.Json);
 
-            A.CallTo(() => JobProfileSkillSegmentService.PingAsync()).Throws<Exception>();
+            A.CallTo(() => SkillSegmentService.PingAsync()).Throws<Exception>();
 
             // Act
             var result = await controller.Health().ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => JobProfileSkillSegmentService.PingAsync()).MustHaveHappenedOnceExactly();
+            A.CallTo(() => SkillSegmentService.PingAsync()).MustHaveHappenedOnceExactly();
 
             var statusResult = Assert.IsType<StatusCodeResult>(result);
 

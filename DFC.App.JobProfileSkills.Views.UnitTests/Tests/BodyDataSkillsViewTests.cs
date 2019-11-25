@@ -25,6 +25,9 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
                         {
                             Id = Guid.NewGuid(),
                             Description = "contextualised Description",
+                            ONetAttributeType = "ONetAttributeType1",
+                            ONetRank = 1,
+                            OriginalRank = 2,
                         },
                     },
                 },
@@ -65,6 +68,9 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
                         {
                             Id = Guid.NewGuid(),
                             Description = contextualisedDescription,
+                            ONetAttributeType = "ONetAttributeType1",
+                            ONetRank = 1,
+                            OriginalRank = 2,
                         },
                     },
                 },

@@ -15,7 +15,7 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
         public BaseSegmentController()
         {
             FakeLogger = A.Fake<ILogger<SegmentController>>();
-            FakeJobProfileSkillSegmentService = A.Fake<IJobProfileSkillSegmentService>();
+            FakeSkillSegmentService = A.Fake<ISkillSegmentService>();
             FakeMapper = A.Fake<AutoMapper.IMapper>();
         }
 
@@ -37,17 +37,17 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
 
         protected ILogger<SegmentController> FakeLogger { get; }
 
-        protected IJobProfileSkillSegmentService FakeJobProfileSkillSegmentService { get; }
+        protected ISkillSegmentService FakeSkillSegmentService { get; }
 
         protected AutoMapper.IMapper FakeMapper { get; }
 
-        protected SegmentController BuildSegmentController(string mediaTypeName)
+        protected SegmentController BuildSegmentController(string mediaTypeName = MediaTypeNames.Application.Json)
         {
             var httpContext = new DefaultHttpContext();
 
             httpContext.Request.Headers[HeaderNames.Accept] = mediaTypeName;
 
-            var controller = new SegmentController(FakeLogger, FakeJobProfileSkillSegmentService, FakeMapper)
+            var controller = new SegmentController(FakeLogger, FakeSkillSegmentService, FakeMapper)
             {
                 ControllerContext = new ControllerContext()
                 {

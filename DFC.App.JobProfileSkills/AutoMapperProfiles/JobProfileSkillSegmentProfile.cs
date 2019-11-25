@@ -3,10 +3,12 @@ using DFC.App.JobProfileSkills.Data.Models;
 using DFC.App.JobProfileSkills.Data.Models.PatchModels;
 using DFC.App.JobProfileSkills.Data.ServiceBusModels;
 using DFC.App.JobProfileSkills.ViewModels;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace DFC.App.JobProfileSkills.AutoMapperProfiles
 {
+    [ExcludeFromCodeCoverage]
     public class JobProfileSkillSegmentProfile : Profile
     {
         public JobProfileSkillSegmentProfile()
