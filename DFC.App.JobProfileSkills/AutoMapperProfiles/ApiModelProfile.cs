@@ -11,11 +11,9 @@ namespace DFC.App.JobProfileSkills.AutoMapperProfiles
     [ExcludeFromCodeCoverage]
     public class ApiModelProfile : Profile
     {
-        private readonly HtmlToStringValueConverter htmlToStringValueConverter;
-
         public ApiModelProfile()
         {
-            htmlToStringValueConverter = new HtmlToStringValueConverter(new HtmlAgilityPackDataTranslator());
+            var htmlToStringValueConverter = new HtmlToStringValueConverter(new HtmlAgilityPackDataTranslator());
 
             CreateMap<JobProfileSkillSegmentDataModel, WhatItTakesApiModel>()
                 .ForMember(d => d.DigitalSkillsLevel, s => s.MapFrom(a => a.DigitalSkill))
@@ -28,7 +26,10 @@ namespace DFC.App.JobProfileSkills.AutoMapperProfiles
                 ;
 
             CreateMap<Skills, RelatedSkillsApiModel>()
-                .ForMember(d => d.Description, s => s.MapFrom(a => a.ContextualisedSkill.Description ?? a.OnetSkill.Description))
+                .ForMember(d => d.Description, s => s.MapFrom(
+                    a => !string.IsNullOrWhiteSpace(a.ContextualisedSkill.Description)
+                        ? a.ContextualisedSkill.Description
+                        : a.OnetSkill.Description))
                 .ForMember(d => d.ONetAttributeType, s => s.MapFrom(a => a.ContextualisedSkill.ONetAttributeType))
                 .ForMember(d => d.ONetRank, s => s.MapFrom(a => a.ContextualisedSkill.ONetRank))
                 .ForMember(d => d.ONetElementId, s => s.MapFrom(a => a.OnetSkill.ONetElementId))
