@@ -31,8 +31,8 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.AutoMapperProfile
 
             CreateMap<SocSkillsMatrix, ContextualisedSkill>()
                 .ForMember(d => d.Description, s => s.MapFrom(a => a.Contextualised))
-                .ForMember(d => d.OriginalRank, s => s.MapFrom(a => a.Rank.GetValueOrDefault()))
-                .ForMember(d => d.ONetRank, s => s.MapFrom(a => a.ONetRank.GetValueOrDefault()));
+                .ForMember(d => d.OriginalRank, s => s.MapFrom(a => a.Rank))
+                .ForMember(d => d.ONetRank, s => s.MapFrom(a => a.ONetRank));
 
             CreateMap<RelatedSkill, OnetSkill>();
 

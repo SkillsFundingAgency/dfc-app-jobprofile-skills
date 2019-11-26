@@ -165,8 +165,7 @@ namespace DFC.App.JobProfileSkills.SegmentService
             }
             else
             {
-                var updatedSkillsMatrix = mapper.Map<Skills>(patchModel);
-                existingSegmentModel.Data.Skills[existingIndex] = updatedSkillsMatrix;
+                existingSegmentModel.Data.Skills[existingIndex] = mapper.Map<Skills>(patchModel);
             }
 
             existingSegmentModel.SequenceNumber = patchModel.SequenceNumber;
