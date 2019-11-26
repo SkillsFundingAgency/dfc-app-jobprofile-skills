@@ -14,10 +14,10 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
         public void ContainsSkillsContent()
         {
             //Arrange
-            var model = new BodyDataViewModel()
+            var model = new BodyDataViewModel
             {
                 DigitalSkill = "DigitalSkill1",
-                Skills = new List<SkillsViewModel>()
+                Skills = new List<SkillsViewModel>
                 {
                     new SkillsViewModel
                     {
@@ -47,13 +47,14 @@ namespace DFC.App.JobProfileSkills.Views.UnitTests.Tests
         [Theory]
         [InlineData(null)]
         [InlineData("")]
-        public void ContainsStandardDescriptionWhenContextualisedDescriptionIsNullOrEmpty(string contextualisedDescription)
+        [InlineData(" ")]
+        public void ContainsStandardDescriptionWhenContextualisedDescriptionIsNullOrWhitespace(string contextualisedDescription)
         {
             //Arrange
-            var model = new BodyDataViewModel()
+            var model = new BodyDataViewModel
             {
                 DigitalSkill = "DigitalSkill1",
-                Skills = new List<SkillsViewModel>()
+                Skills = new List<SkillsViewModel>
                 {
                     new SkillsViewModel
                     {
