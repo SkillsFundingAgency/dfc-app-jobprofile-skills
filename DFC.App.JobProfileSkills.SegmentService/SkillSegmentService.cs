@@ -114,7 +114,7 @@ namespace DFC.App.JobProfileSkills.SegmentService
                 return HttpStatusCode.AlreadyReported;
             }
 
-            var existingSkillMatrix = existingSegmentModel.Data?.Skills?.SingleOrDefault(s => s.OnetSkill?.Id == patchModel.Id);
+            var existingSkillMatrix = existingSegmentModel.Data?.Skills?.FirstOrDefault(s => s.OnetSkill?.Id == patchModel.Id);
             if (existingSkillMatrix is null)
             {
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
@@ -152,7 +152,7 @@ namespace DFC.App.JobProfileSkills.SegmentService
                 return HttpStatusCode.AlreadyReported;
             }
 
-            var existingSkillMatrix = existingSegmentModel.Data?.Skills?.SingleOrDefault(sm => sm.ContextualisedSkill?.Id == patchModel.Id);
+            var existingSkillMatrix = existingSegmentModel.Data?.Skills?.FirstOrDefault(sm => sm.ContextualisedSkill?.Id == patchModel.Id);
             if (existingSkillMatrix is null)
             {
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
@@ -165,8 +165,7 @@ namespace DFC.App.JobProfileSkills.SegmentService
             }
             else
             {
-                var updatedSkillsMatrix = mapper.Map<Skills>(patchModel);
-                existingSegmentModel.Data.Skills[existingIndex] = updatedSkillsMatrix;
+                existingSegmentModel.Data.Skills[existingIndex] = mapper.Map<Skills>(patchModel);
             }
 
             existingSegmentModel.SequenceNumber = patchModel.SequenceNumber;
@@ -192,7 +191,7 @@ namespace DFC.App.JobProfileSkills.SegmentService
                 return HttpStatusCode.AlreadyReported;
             }
 
-            var existingSkillMatrix = existingSegmentModel.Data?.Restrictions?.SingleOrDefault(sm => sm.Id == patchModel.Id);
+            var existingSkillMatrix = existingSegmentModel.Data?.Restrictions?.FirstOrDefault(sm => sm.Id == patchModel.Id);
             if (existingSkillMatrix is null)
             {
                 return patchModel.MessageAction == MessageAction.Deleted ? HttpStatusCode.AlreadyReported : HttpStatusCode.NotFound;
