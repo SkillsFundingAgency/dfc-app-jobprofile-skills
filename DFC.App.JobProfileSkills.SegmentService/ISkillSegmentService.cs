@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DFC.App.JobProfileSkills.Data.Contracts
 {
-    public interface IJobProfileSkillSegmentService
+    public interface ISkillSegmentService
     {
         Task<bool> PingAsync();
 
@@ -15,7 +15,7 @@ namespace DFC.App.JobProfileSkills.Data.Contracts
 
         Task<JobProfileSkillSegmentModel> GetByIdAsync(Guid documentId);
 
-        Task<JobProfileSkillSegmentModel> GetByNameAsync(string canonicalName, bool isDraft = false);
+        Task<JobProfileSkillSegmentModel> GetByNameAsync(string canonicalName);
 
         Task<HttpStatusCode> UpsertAsync(JobProfileSkillSegmentModel skillSegmentModel);
 

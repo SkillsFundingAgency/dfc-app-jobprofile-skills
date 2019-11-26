@@ -13,12 +13,12 @@ namespace DFC.App.JobProfileSkills.Controllers
     public class HealthController : Controller
     {
         private readonly ILogger<HealthController> logger;
-        private readonly IJobProfileSkillSegmentService jobProfileSkillSegmentService;
+        private readonly ISkillSegmentService skillSegmentService;
 
-        public HealthController(ILogger<HealthController> logger, IJobProfileSkillSegmentService jobProfileSkillSegmentService)
+        public HealthController(ILogger<HealthController> logger, ISkillSegmentService skillSegmentService)
         {
             this.logger = logger;
-            this.jobProfileSkillSegmentService = jobProfileSkillSegmentService;
+            this.skillSegmentService = skillSegmentService;
         }
 
         [HttpGet]
@@ -32,7 +32,7 @@ namespace DFC.App.JobProfileSkills.Controllers
 
             try
             {
-                var isHealthy = await jobProfileSkillSegmentService.PingAsync().ConfigureAwait(false);
+                var isHealthy = await skillSegmentService.PingAsync().ConfigureAwait(false);
 
                 if (isHealthy)
                 {

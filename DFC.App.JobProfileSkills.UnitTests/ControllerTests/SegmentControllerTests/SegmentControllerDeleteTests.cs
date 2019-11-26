@@ -18,13 +18,13 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
             var documentId = Guid.NewGuid();
             var controller = BuildSegmentController(mediaTypeName);
 
-            A.CallTo(() => FakeJobProfileSkillSegmentService.DeleteAsync(documentId)).Returns(documentExists);
+            A.CallTo(() => FakeSkillSegmentService.DeleteAsync(documentId)).Returns(documentExists);
 
             // Act
             var result = await controller.Delete(documentId).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSkillSegmentService.DeleteAsync(documentId)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeSkillSegmentService.DeleteAsync(documentId)).MustHaveHappenedOnceExactly();
             var okResult = Assert.IsType<OkResult>(result);
             Assert.Equal((int)HttpStatusCode.OK, okResult.StatusCode);
 
@@ -40,13 +40,13 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
             var documentId = Guid.NewGuid();
             var controller = BuildSegmentController(mediaTypeName);
 
-            A.CallTo(() => FakeJobProfileSkillSegmentService.DeleteAsync(documentId)).Returns(documentExists);
+            A.CallTo(() => FakeSkillSegmentService.DeleteAsync(documentId)).Returns(documentExists);
 
             // Act
             var result = await controller.Delete(documentId).ConfigureAwait(false);
 
             // Assert
-            A.CallTo(() => FakeJobProfileSkillSegmentService.DeleteAsync(documentId)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeSkillSegmentService.DeleteAsync(documentId)).MustHaveHappenedOnceExactly();
             var statusResult = Assert.IsType<NotFoundResult>(result);
             Assert.Equal((int)HttpStatusCode.NotFound, statusResult.StatusCode);
 

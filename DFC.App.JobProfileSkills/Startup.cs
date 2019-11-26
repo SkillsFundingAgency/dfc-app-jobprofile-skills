@@ -2,10 +2,8 @@
 using DFC.App.JobProfileSkills.Data.Contracts;
 using DFC.App.JobProfileSkills.Data.Models;
 using DFC.App.JobProfileSkills.Data.ServiceBusModels;
-using DFC.App.JobProfileSkills.DraftSegmentService;
 using DFC.App.JobProfileSkills.Repository.CosmosDb;
 using DFC.App.JobProfileSkills.SegmentService;
-using DFC.HtmlToDataTranslator.ValueConverters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,13 +11,16 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
+using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace DFC.App.JobProfileSkills
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public const string CosmosDbConfigAppSettings = "Configuration:CosmosDbConnections:JobProfileSegment";
@@ -42,16 +43,15 @@ namespace DFC.App.JobProfileSkills
             });
 
             var serviceBusOptions = configuration.GetSection(ServiceBusOptionsAppSettings).Get<ServiceBusOptions>();
-            services.AddSingleton(serviceBusOptions ?? new ServiceBusOptions());
-
             var cosmosDbConnection = configuration.GetSection(CosmosDbConfigAppSettings).Get<CosmosDbConnection>();
             var documentClient = new DocumentClient(new Uri(cosmosDbConnection.EndpointUrl), cosmosDbConnection.AccessKey);
+            var topicClient = new TopicClient(serviceBusOptions.ServiceBusConnectionString, serviceBusOptions.TopicName);
 
             services.AddSingleton(cosmosDbConnection);
             services.AddSingleton<IDocumentClient>(documentClient);
+            services.AddSingleton<ITopicClient>(topicClient);
             services.AddSingleton<ICosmosRepository<JobProfileSkillSegmentModel>, CosmosRepository<JobProfileSkillSegmentModel>>();
-            services.AddSingleton<IJobProfileSkillSegmentService, JobProfileSkillSegmentService>();
-            services.AddSingleton<IDraftJobProfileSkillSegmentService, DraftJobProfileSkillSegmentService>();
+            services.AddSingleton<ISkillSegmentService, SkillSegmentService>();
             services.AddSingleton<IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>, JobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel>>();
             services.AddAutoMapper(typeof(Startup).Assembly);
 

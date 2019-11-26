@@ -12,7 +12,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
     public class SegmentServiceGetAllTests
     {
         private readonly ICosmosRepository<JobProfileSkillSegmentModel> repository;
-        private readonly IJobProfileSkillSegmentService jobProfileSkillSegmentService;
+        private readonly ISkillSegmentService skillSegmentService;
 
         public SegmentServiceGetAllTests()
         {
@@ -20,7 +20,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
             var mapper = A.Fake<AutoMapper.IMapper>();
 
             repository = A.Fake<ICosmosRepository<JobProfileSkillSegmentModel>>();
-            jobProfileSkillSegmentService = new JobProfileSkillSegmentService(repository, mapper, jobProfileSegmentRefreshService);
+            skillSegmentService = new SkillSegmentService(repository, mapper, jobProfileSegmentRefreshService);
         }
 
         [Fact]
@@ -32,7 +32,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
             A.CallTo(() => repository.GetAllAsync()).Returns(expectedResults);
 
             // act
-            var results = await jobProfileSkillSegmentService.GetAllAsync().ConfigureAwait(false);
+            var results = await skillSegmentService.GetAllAsync().ConfigureAwait(false);
 
             // assert
             A.CallTo(() => repository.GetAllAsync()).MustHaveHappenedOnceExactly();
@@ -48,7 +48,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
             A.CallTo(() => repository.GetAllAsync()).Returns(expectedResults);
 
             // act
-            var results = await jobProfileSkillSegmentService.GetAllAsync().ConfigureAwait(false);
+            var results = await skillSegmentService.GetAllAsync().ConfigureAwait(false);
 
             // assert
             A.CallTo(() => repository.GetAllAsync()).MustHaveHappenedOnceExactly();

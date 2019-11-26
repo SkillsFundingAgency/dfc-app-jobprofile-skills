@@ -13,10 +13,10 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.HealthControllerTes
         public BaseHealthController()
         {
             Logger = A.Fake<ILogger<HealthController>>();
-            JobProfileSkillSegmentService = A.Fake<IJobProfileSkillSegmentService>();
+            SkillSegmentService = A.Fake<ISkillSegmentService>();
         }
 
-        protected IJobProfileSkillSegmentService JobProfileSkillSegmentService { get; }
+        protected ISkillSegmentService SkillSegmentService { get; }
 
         protected ILogger<HealthController> Logger { get; }
 
@@ -26,7 +26,7 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.HealthControllerTes
 
             httpContext.Request.Headers[HeaderNames.Accept] = mediaTypeName;
 
-            var controller = new HealthController(Logger, JobProfileSkillSegmentService)
+            var controller = new HealthController(Logger, SkillSegmentService)
             {
                 ControllerContext = new ControllerContext()
                 {

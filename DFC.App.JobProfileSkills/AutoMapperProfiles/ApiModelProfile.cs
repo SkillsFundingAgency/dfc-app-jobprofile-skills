@@ -3,10 +3,12 @@ using DFC.App.JobProfileSkills.ApiModels;
 using DFC.App.JobProfileSkills.Data.Models;
 using DFC.HtmlToDataTranslator.Services;
 using DFC.HtmlToDataTranslator.ValueConverters;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace DFC.App.JobProfileSkills.AutoMapperProfiles
 {
+    [ExcludeFromCodeCoverage]
     public class ApiModelProfile : Profile
     {
         private readonly HtmlToStringValueConverter htmlToStringValueConverter;

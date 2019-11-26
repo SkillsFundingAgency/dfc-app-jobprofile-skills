@@ -10,7 +10,7 @@ using Xunit;
 using RelatedSkill = DFC.App.JobProfileSkills.Data.ServiceBusModels.RelatedSkill;
 using Restriction = DFC.App.JobProfileSkills.Data.ServiceBusModels.Restriction;
 
-namespace DFC.App.JobProfileSkills.MessageFunctionAppTests
+namespace DFC.App.JobProfileSkills.MessageFunctionApp.UnitTests.Services
 {
     public class MappingServiceTests
     {
