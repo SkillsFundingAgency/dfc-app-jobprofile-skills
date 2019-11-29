@@ -13,9 +13,9 @@ namespace DFC.App.JobProfileSkills.Data.ServiceBusModels
 
         public string ONetAttributeType { get; set; }
 
-        public decimal? Rank { get; set; }
+        public decimal Rank { get; set; }
 
-        public decimal? ONetRank { get; set; }
+        public decimal ONetRank { get; set; }
 
         public IEnumerable<RelatedSkill> RelatedSkill { get; set; }
     }
