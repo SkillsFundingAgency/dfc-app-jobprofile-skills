@@ -74,11 +74,11 @@ namespace DFC.App.JobProfileSkills.Controllers
 
             if (model != null)
             {
-                var viewModel = mapper.Map<DocumentViewModel>(model);
+                var viewModel = mapper.Map<BodyViewModel>(model);
 
                 logger.LogInformation($"{DocumentActionName} has succeeded for: {article}");
 
-                return View(viewModel);
+                return View(nameof(Body), viewModel);
             }
 
             logger.LogWarning($"{DocumentActionName} has returned no content for: {article}");
