@@ -1,9 +1,9 @@
 ﻿using DFC.App.JobProfileSkills.Controllers;
 using DFC.App.JobProfileSkills.Data.Contracts;
+using DFC.Logger.AppInsights.Contracts;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using System.Collections.Generic;
 using System.Net.Mime;
@@ -14,7 +14,7 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
     {
         public BaseSegmentController()
         {
-            FakeLogger = A.Fake<ILogger<SegmentController>>();
+            FakeLogger = A.Fake<ILogService>();
             FakeSkillSegmentService = A.Fake<ISkillSegmentService>();
             FakeMapper = A.Fake<AutoMapper.IMapper>();
         }
@@ -35,7 +35,7 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
             new string[] { MediaTypeNames.Application.Json },
         };
 
-        protected ILogger<SegmentController> FakeLogger { get; }
+        protected ILogService FakeLogger { get; }
 
         protected ISkillSegmentService FakeSkillSegmentService { get; }
 
