@@ -1,7 +1,8 @@
 ﻿using DFC.App.JobProfileSkills.Data.Models;
 using DFC.App.JobProfileSkills.Data.Models.PatchModels;
 using DFC.App.JobProfileSkills.MessageFunctionApp.Models;
-using Microsoft.Extensions.Logging;
+using DFC.Logger.AppInsights.Constants;
+using DFC.Logger.AppInsights.Contracts;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -15,18 +16,21 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
     {
         private readonly SegmentClientOptions segmentClientOptions;
         private readonly HttpClient httpClient;
-        private readonly ILogger logger;
+        private readonly ILogService logService;
+        private readonly ICorrelationIdProvider correlationIdProvider;
 
-        public HttpClientService(SegmentClientOptions segmentClientOptions, HttpClient httpClient, ILogger logger)
+        public HttpClientService(SegmentClientOptions segmentClientOptions, HttpClient httpClient, ILogService logService, ICorrelationIdProvider correlationIdProvider)
         {
             this.segmentClientOptions = segmentClientOptions;
             this.httpClient = httpClient;
-            this.logger = logger;
+            this.logService = logService;
+            this.correlationIdProvider = correlationIdProvider;
         }
 
         public async Task<HttpStatusCode> PostAsync(JobProfileSkillSegmentModel skillSegmentModel)
         {
             var url = new Uri($"{segmentClientOptions?.BaseAddress}segment");
+            ConfigureHttpClient();
 
             using (var content = new ObjectContent(typeof(JobProfileSkillSegmentModel), skillSegmentModel, new JsonMediaTypeFormatter(), MediaTypeNames.Application.Json))
             {
@@ -34,7 +38,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
                 if (!response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    logger.LogError($"Failure status code '{response.StatusCode}' received with content '{responseContent}', for POST, Id: {skillSegmentModel?.DocumentId}.");
+                    logService.LogError($"Failure status code '{response.StatusCode}' received with content '{responseContent}', for POST, Id: {skillSegmentModel?.DocumentId}.");
                     response.EnsureSuccessStatusCode();
                 }
 
@@ -45,6 +49,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
         public async Task<HttpStatusCode> PutAsync(JobProfileSkillSegmentModel skillSegmentModel)
         {
             var url = new Uri($"{segmentClientOptions?.BaseAddress}segment");
+            ConfigureHttpClient();
 
             using (var content = new ObjectContent(typeof(JobProfileSkillSegmentModel), skillSegmentModel, new JsonMediaTypeFormatter(), MediaTypeNames.Application.Json))
             {
@@ -53,7 +58,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
                 if (!response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    logger.LogError($"Failure status code '{response.StatusCode}' received with content '{responseContent}', for Put type {typeof(JobProfileSkillSegmentModel)}, Id: {skillSegmentModel?.DocumentId}");
+                    logService.LogError($"Failure status code '{response.StatusCode}' received with content '{responseContent}', for Put type {typeof(JobProfileSkillSegmentModel)}, Id: {skillSegmentModel?.DocumentId}");
                     response.EnsureSuccessStatusCode();
                 }
 
@@ -65,13 +70,15 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
             where T : BasePatchModel
         {
             var url = new Uri($"{segmentClientOptions.BaseAddress}segment/{patchModel?.JobProfileId}/{patchTypeEndpoint}");
+            ConfigureHttpClient();
+
             using (var content = new ObjectContent<T>(patchModel, new JsonMediaTypeFormatter(), MediaTypeNames.Application.Json))
             {
                 var response = await httpClient.PatchAsync(url, content).ConfigureAwait(false);
                 if (!response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                    logger.LogError($"Failure status code '{response.StatusCode}' received with content '{responseContent}', for patch type {typeof(T)}, Id: {patchModel?.JobProfileId}");
+                    logService.LogError($"Failure status code '{response.StatusCode}' received with content '{responseContent}', for patch type {typeof(T)}, Id: {patchModel?.JobProfileId}");
 
                     response.EnsureSuccessStatusCode();
                 }
@@ -83,16 +90,26 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
         public async Task<HttpStatusCode> DeleteAsync(Guid id)
         {
             var url = new Uri($"{segmentClientOptions?.BaseAddress}segment/{id}");
+            ConfigureHttpClient();
             var response = await httpClient.DeleteAsync(url).ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound)
             {
                 var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                logger.LogError($"Failure status code '{response.StatusCode}' received with content '{responseContent}', for DELETE, Id: {id}.");
+                logService.LogError($"Failure status code '{response.StatusCode}' received with content '{responseContent}', for DELETE, Id: {id}.");
                 response.EnsureSuccessStatusCode();
             }
 
             return response.StatusCode;
         }
+
+        private void ConfigureHttpClient()
+        {
+            if (!httpClient.DefaultRequestHeaders.Contains(HeaderName.CorrelationId))
+            {
+                httpClient.DefaultRequestHeaders.Add(HeaderName.CorrelationId, correlationIdProvider.CorrelationId);
+            }
+        }
+
     }
 }

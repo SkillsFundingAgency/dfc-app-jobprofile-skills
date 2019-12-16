@@ -1,9 +1,9 @@
 ﻿using DFC.App.JobProfileSkills.Controllers;
 using DFC.App.JobProfileSkills.Data.Contracts;
+using DFC.Logger.AppInsights.Contracts;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 
 namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.HealthControllerTests
@@ -12,13 +12,13 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.HealthControllerTes
     {
         public BaseHealthController()
         {
-            Logger = A.Fake<ILogger<HealthController>>();
+            Logger = A.Fake<ILogService>();
             SkillSegmentService = A.Fake<ISkillSegmentService>();
         }
 
         protected ISkillSegmentService SkillSegmentService { get; }
 
-        protected ILogger<HealthController> Logger { get; }
+        protected ILogService Logger { get; }
 
         protected HealthController BuildHealthController(string mediaTypeName)
         {
