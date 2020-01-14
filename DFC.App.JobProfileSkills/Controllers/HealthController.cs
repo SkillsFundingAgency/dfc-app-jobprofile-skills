@@ -57,7 +57,6 @@ namespace DFC.App.JobProfileSkills.Controllers
         }
 
         [HttpGet]
-        [Route("{controller}/ping")]
         public IActionResult Ping()
         {
             logService.LogInformation($"{nameof(Ping)} has been called");
