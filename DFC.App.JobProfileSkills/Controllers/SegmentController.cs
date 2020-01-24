@@ -2,7 +2,9 @@
 using DFC.App.JobProfileSkills.Data.Contracts;
 using DFC.App.JobProfileSkills.Data.Models;
 using DFC.App.JobProfileSkills.Data.Models.PatchModels;
+using DFC.App.JobProfileSkills.Data.ServiceBusModels;
 using DFC.App.JobProfileSkills.Extensions;
+using DFC.App.JobProfileSkills.SegmentService;
 using DFC.App.JobProfileSkills.ViewModels;
 using DFC.Logger.AppInsights.Contracts;
 using Microsoft.AspNetCore.Mvc;
@@ -25,16 +27,19 @@ namespace DFC.App.JobProfileSkills.Controllers
         private const string PatchOnetSkillActionName = nameof(PatchOnetSkill);
         private const string PatchSkillsMatrixActionName = nameof(PatchSkillsMatrix);
         private const string PatchRestrictionActionName = nameof(PatchRestriction);
+        private const string RefreshDocumentsActionName = nameof(RefreshDocuments);
 
         private readonly ILogService logService;
         private readonly ISkillSegmentService skillSegmentService;
         private readonly AutoMapper.IMapper mapper;
+        private readonly IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> refreshService;
 
-        public SegmentController(ILogService logService, ISkillSegmentService skillSegmentService, AutoMapper.IMapper mapper)
+        public SegmentController(ILogService logService, ISkillSegmentService skillSegmentService, AutoMapper.IMapper mapper, IJobProfileSegmentRefreshService<RefreshJobProfileSegmentServiceBusModel> refreshService)
         {
             this.logService = logService;
             this.skillSegmentService = skillSegmentService;
             this.mapper = mapper;
+            this.refreshService = refreshService;
         }
 
         [HttpGet]
@@ -82,6 +87,30 @@ namespace DFC.App.JobProfileSkills.Controllers
 
             logService.LogWarning($"{DocumentActionName} has returned no content for: {article}");
 
+            return NoContent();
+        }
+
+        [HttpPost]
+        [Route("{controller}/refreshDocuments")]
+        public async Task<IActionResult> RefreshDocuments()
+        {
+            logService.LogInformation($"{RefreshDocumentsActionName} has been called");
+
+            var segmentModels = await skillSegmentService.GetAllAsync().ConfigureAwait(false);
+            if (segmentModels != null)
+            {
+                var result = segmentModels
+                    .OrderBy(x => x.CanonicalName)
+                    .Select(x => mapper.Map<RefreshJobProfileSegmentServiceBusModel>(x))
+                    .ToList();
+
+                await refreshService.SendMessageListAsync(result).ConfigureAwait(false);
+
+                logService.LogInformation($"{RefreshDocumentsActionName} has succeeded");
+                return Json(result);
+            }
+
+            logService.LogWarning($"{RefreshDocumentsActionName} has returned with no results");
             return NoContent();
         }
 
