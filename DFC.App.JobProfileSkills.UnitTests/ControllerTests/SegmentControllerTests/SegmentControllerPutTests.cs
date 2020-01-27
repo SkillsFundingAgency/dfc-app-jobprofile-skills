@@ -30,13 +30,13 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
         public async Task SegmentControllerPutReturnsBadResultWhenModelIsInvalid()
         {
             // Arrange
-            var relatedCareersSegmentModel = new JobProfileSkillSegmentModel();
+            var jobProfileSkillSegmentModel = new JobProfileSkillSegmentModel();
             var controller = BuildSegmentController();
 
             controller.ModelState.AddModelError(string.Empty, "Model is not valid");
 
             // Act
-            var result = await controller.Put(relatedCareersSegmentModel).ConfigureAwait(false);
+            var result = await controller.Put(jobProfileSkillSegmentModel).ConfigureAwait(false);
 
             // Assert
             var statusResult = Assert.IsType<BadRequestObjectResult>(result);
