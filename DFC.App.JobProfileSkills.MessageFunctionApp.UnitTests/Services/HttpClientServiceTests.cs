@@ -4,8 +4,8 @@ using DFC.App.JobProfileSkills.Data.Models.PatchModels;
 using DFC.App.JobProfileSkills.MessageFunctionApp.Models;
 using DFC.App.JobProfileSkills.MessageFunctionApp.Services;
 using DFC.App.JobProfileSkills.MessageFunctionApp.UnitTests.ClientHandlers;
+using DFC.Logger.AppInsights.Contracts;
 using FakeItEasy;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -18,7 +18,8 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.UnitTests.Services
     public class HttpClientServiceTests
     {
         private readonly SegmentClientOptions options;
-        private readonly ILogger logger;
+        private readonly ILogService logService;
+        private readonly ICorrelationIdProvider correlationIdProvider;
 
         public HttpClientServiceTests()
         {
@@ -28,7 +29,8 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.UnitTests.Services
                 Timeout = TimeSpan.MinValue,
             };
 
-            logger = A.Fake<ILogger>();
+            logService = A.Fake<ILogService>();
+            correlationIdProvider = A.Fake<ICorrelationIdProvider>();
         }
 
         [Fact]
@@ -42,7 +44,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.UnitTests.Services
 
             var fakeHttpMessageHandler = new FakeHttpMessageHandler(fakeHttpRequestSender);
             var httpClient = new HttpClient(fakeHttpMessageHandler) { BaseAddress = new Uri("http://SomeDummyUrl") };
-            var httpClientService = new HttpClientService(options, httpClient, logger);
+            var httpClientService = new HttpClientService(options, httpClient, logService, correlationIdProvider);
 
             // Act
             var result = await httpClientService.PostAsync(GetSegmentModel()).ConfigureAwait(false);
@@ -66,7 +68,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.UnitTests.Services
 
             var fakeHttpMessageHandler = new FakeHttpMessageHandler(fakeHttpRequestSender);
             var httpClient = new HttpClient(fakeHttpMessageHandler) { BaseAddress = new Uri("http://SomeDummyUrl") };
-            var httpClientService = new HttpClientService(options, httpClient, logger);
+            var httpClientService = new HttpClientService(options, httpClient, logService, correlationIdProvider);
 
             // Act
             await Assert.ThrowsAsync<HttpRequestException>(async () => await httpClientService.PostAsync(GetSegmentModel()).ConfigureAwait(false)).ConfigureAwait(false);
@@ -87,7 +89,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.UnitTests.Services
 
             var fakeHttpMessageHandler = new FakeHttpMessageHandler(fakeHttpRequestSender);
             var httpClient = new HttpClient(fakeHttpMessageHandler) { BaseAddress = new Uri("http://SomeDummyUrl") };
-            var httpClientService = new HttpClientService(options, httpClient, logger);
+            var httpClientService = new HttpClientService(options, httpClient, logService, correlationIdProvider);
 
             // Act
             await Assert.ThrowsAsync<HttpRequestException>(async () => await httpClientService.PutAsync(GetSegmentModel()).ConfigureAwait(false)).ConfigureAwait(false);
@@ -108,7 +110,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.UnitTests.Services
 
             var fakeHttpMessageHandler = new FakeHttpMessageHandler(fakeHttpRequestSender);
             var httpClient = new HttpClient(fakeHttpMessageHandler) { BaseAddress = new Uri("http://SomeDummyUrl") };
-            var httpClientService = new HttpClientService(options, httpClient, logger);
+            var httpClientService = new HttpClientService(options, httpClient, logService, correlationIdProvider);
 
             // Act
             var result = await httpClientService.PutAsync(GetSegmentModel()).ConfigureAwait(false);
@@ -132,7 +134,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.UnitTests.Services
 
             var fakeHttpMessageHandler = new FakeHttpMessageHandler(fakeHttpRequestSender);
             var httpClient = new HttpClient(fakeHttpMessageHandler) { BaseAddress = new Uri("http://SomeDummyUrl") };
-            var httpClientService = new HttpClientService(options, httpClient, logger);
+            var httpClientService = new HttpClientService(options, httpClient, logService, correlationIdProvider);
 
             // Act
             var result = await httpClientService.PutAsync(GetSegmentModel()).ConfigureAwait(false);
@@ -156,7 +158,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.UnitTests.Services
 
             var fakeHttpMessageHandler = new FakeHttpMessageHandler(fakeHttpRequestSender);
             var httpClient = new HttpClient(fakeHttpMessageHandler) { BaseAddress = new Uri("http://SomeDummyUrl") };
-            var httpClientService = new HttpClientService(options, httpClient, logger);
+            var httpClientService = new HttpClientService(options, httpClient, logService, correlationIdProvider);
 
             // Act
             var result = await httpClientService.PatchAsync(GetPatchModel(), "DummyPatchEndpoint").ConfigureAwait(false);
@@ -180,7 +182,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.UnitTests.Services
 
             var fakeHttpMessageHandler = new FakeHttpMessageHandler(fakeHttpRequestSender);
             var httpClient = new HttpClient(fakeHttpMessageHandler) { BaseAddress = new Uri("http://SomeDummyUrl") };
-            var httpClientService = new HttpClientService(options, httpClient, logger);
+            var httpClientService = new HttpClientService(options, httpClient, logService, correlationIdProvider);
 
             // Act
             await Assert.ThrowsAsync<HttpRequestException>(async () => await httpClientService.PatchAsync(GetPatchModel(), "DummyPatchEndpoint").ConfigureAwait(false)).ConfigureAwait(false);
@@ -201,7 +203,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.UnitTests.Services
 
             var fakeHttpMessageHandler = new FakeHttpMessageHandler(fakeHttpRequestSender);
             var httpClient = new HttpClient(fakeHttpMessageHandler) { BaseAddress = new Uri("http://SomeDummyUrl") };
-            var httpClientService = new HttpClientService(options, httpClient, logger);
+            var httpClientService = new HttpClientService(options, httpClient, logService, correlationIdProvider);
 
             // Act
             var result = await httpClientService.DeleteAsync(Guid.NewGuid()).ConfigureAwait(false);
@@ -225,7 +227,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.UnitTests.Services
 
             var fakeHttpMessageHandler = new FakeHttpMessageHandler(fakeHttpRequestSender);
             var httpClient = new HttpClient(fakeHttpMessageHandler) { BaseAddress = new Uri("http://SomeDummyUrl") };
-            var httpClientService = new HttpClientService(options, httpClient, logger);
+            var httpClientService = new HttpClientService(options, httpClient, logService, correlationIdProvider);
 
             // Act
             await Assert.ThrowsAsync<HttpRequestException>(async () => await httpClientService.DeleteAsync(Guid.NewGuid()).ConfigureAwait(false)).ConfigureAwait(false);

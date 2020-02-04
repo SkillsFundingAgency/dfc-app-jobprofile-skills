@@ -1,5 +1,4 @@
 ﻿using DFC.App.JobProfileSkills.Data.ServiceBusModels;
-using System;
 
 namespace DFC.App.JobProfileSkills.Data.Models.PatchModels
 {
