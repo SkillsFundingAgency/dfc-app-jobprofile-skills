@@ -12,7 +12,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Functions
 {
     public class SitefinityMessageHandler
     {
-        private readonly string classFullName = typeof(SitefinityMessageHandler).FullName;
+        private static readonly string ClassFullName = typeof(SitefinityMessageHandler).FullName;
         private readonly IMessageProcessor messageProcessor;
         private readonly IMessagePropertiesService messagePropertiesService;
         private readonly ILogService logService;
@@ -73,19 +73,19 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Functions
             switch (result)
             {
                 case HttpStatusCode.OK:
-                    logService.LogInformation($"{classFullName}: JobProfile Id: {messageContentId}: Updated segment");
+                    logService.LogInformation($"{ClassFullName}: JobProfile Id: {messageContentId}: Updated segment");
                     break;
 
                 case HttpStatusCode.Created:
-                    logService.LogInformation($"{classFullName}: JobProfile Id: {messageContentId}: Created segment");
+                    logService.LogInformation($"{ClassFullName}: JobProfile Id: {messageContentId}: Created segment");
                     break;
 
                 case HttpStatusCode.AlreadyReported:
-                    logService.LogInformation($"{classFullName}: JobProfile Id: {messageContentId}: Segment previously updated");
+                    logService.LogInformation($"{ClassFullName}: JobProfile Id: {messageContentId}: Segment previously updated");
                     break;
 
                 default:
-                    logService.LogWarning($"{classFullName}: JobProfile Id: {messageContentId}: Segment not Posted: Status: {result}");
+                    logService.LogWarning($"{ClassFullName}: JobProfile Id: {messageContentId}: Segment not Posted: Status: {result}");
                     break;
             }
         }
