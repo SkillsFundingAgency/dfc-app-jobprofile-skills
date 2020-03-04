@@ -12,7 +12,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Functions
 {
     public class SitefinityMessageHandler
     {
-        private readonly string ClassFullName = typeof(SitefinityMessageHandler).FullName;
+        private static readonly string ClassFullName = typeof(SitefinityMessageHandler).FullName;
         private readonly IMessageProcessor messageProcessor;
         private readonly IMessagePropertiesService messagePropertiesService;
         private readonly ILogService logService;

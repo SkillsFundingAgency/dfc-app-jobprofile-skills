@@ -21,22 +21,20 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
             // Arrange
             var expectedResult = A.Fake<JobProfileSkillSegmentModel>();
             var controller = BuildSegmentController(mediaTypeName);
-            var bodyViewModel = GetBodyViewModel();
+            var documentViewModel = GetDocumentViewModel();
 
             A.CallTo(() => FakeSkillSegmentService.GetByNameAsync(A<string>.Ignored)).Returns(expectedResult);
-            A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileSkillSegmentModel>.Ignored))
-                .Returns(bodyViewModel);
+            A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).Returns(documentViewModel);
 
             // Act
             var result = await controller.Document(Article).ConfigureAwait(false);
 
             // Assert
             A.CallTo(() => FakeSkillSegmentService.GetByNameAsync(A<string>.Ignored)).MustHaveHappenedOnceExactly();
-            A.CallTo(() => FakeMapper.Map<BodyViewModel>(A<JobProfileSkillSegmentModel>.Ignored))
-                .MustHaveHappenedOnceExactly();
+            A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.IsAssignableFrom<BodyViewModel>(viewResult.ViewData.Model);
+            Assert.IsAssignableFrom<DocumentViewModel>(viewResult.ViewData.Model);
 
             controller.Dispose();
         }
@@ -64,13 +62,14 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
             controller.Dispose();
         }
 
-        private BodyViewModel GetBodyViewModel()
+        private DocumentViewModel GetDocumentViewModel()
         {
-            return new BodyViewModel
+            return new DocumentViewModel
             {
                 DocumentId = Guid.NewGuid(),
                 CanonicalName = Article,
-                Data = new BodyDataViewModel
+                SequenceNumber = 123,
+                Data = new DocumentDataViewModel
                 {
                     DigitalSkill = "Digital skill 1",
                     LastReviewed = DateTime.UtcNow,
