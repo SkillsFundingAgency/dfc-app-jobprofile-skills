@@ -65,6 +65,7 @@ namespace DFC.App.JobProfileSkills
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseRouting();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
