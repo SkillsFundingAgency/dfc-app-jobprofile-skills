@@ -77,7 +77,7 @@ namespace DFC.App.JobProfileSkills.Controllers
             var model = await skillSegmentService.GetByNameAsync(article).ConfigureAwait(false);
             if (model != null)
             {
-                var viewModel = mapper.Map<BodyViewModel>(model);
+                var viewModel = mapper.Map<DocumentViewModel>(model);
 
                 logService.LogInformation($"{DocumentActionName} has succeeded for: {article}");
 

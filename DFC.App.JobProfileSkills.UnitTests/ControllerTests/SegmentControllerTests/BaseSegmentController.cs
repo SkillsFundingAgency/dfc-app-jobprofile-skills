@@ -9,8 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using System.Collections.Generic;
 using System.Net.Mime;
-using DFC.App.JobProfileSkills.Data.ServiceBusModels;
-using DFC.App.JobProfileSkills.SegmentService;
 
 namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTests
 {

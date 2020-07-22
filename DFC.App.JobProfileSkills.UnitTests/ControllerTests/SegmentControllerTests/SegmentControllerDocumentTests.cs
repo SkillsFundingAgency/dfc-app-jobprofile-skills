@@ -21,7 +21,7 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
             // Arrange
             var expectedResult = A.Fake<JobProfileSkillSegmentModel>();
             var controller = BuildSegmentController(mediaTypeName);
-            var bodyViewModel = GetBodyViewModel();
+            var documentViewModel = GetDocumentViewModel();
 
             A.CallTo(() => FakeSkillSegmentService.GetByNameAsync(A<string>.Ignored)).Returns(expectedResult);
             A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).Returns(documentViewModel);
@@ -34,7 +34,7 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
             A.CallTo(() => FakeMapper.Map<DocumentViewModel>(A<JobProfileSkillSegmentModel>.Ignored)).MustHaveHappenedOnceExactly();
 
             var viewResult = Assert.IsType<ViewResult>(result);
-            Assert.IsAssignableFrom<BodyViewModel>(viewResult.ViewData.Model);
+            Assert.IsAssignableFrom<DocumentViewModel>(viewResult.ViewData.Model);
 
             controller.Dispose();
         }
@@ -62,9 +62,9 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
             controller.Dispose();
         }
 
-        private BodyViewModel GetBodyViewModel()
+        private DocumentViewModel GetDocumentViewModel()
         {
-            return new BodyViewModel
+            return new DocumentViewModel
             {
                 DocumentId = Guid.NewGuid(),
                 CanonicalName = Article,
