@@ -20,6 +20,11 @@ namespace DFC.App.JobProfileSkills.AutoMapperProfiles
             CreateMap<JobProfileSkillSegmentDataModel, BodyDataViewModel>()
                 .ForMember(d => d.Skills, s => s.MapFrom(a => a.Skills.Take(8)));
 
+            CreateMap<JobProfileSkillSegmentModel, DocumentViewModel>();
+
+            CreateMap<JobProfileSkillSegmentDataModel, DocumentDataViewModel>()
+                .ForMember(d => d.Skills, s => s.MapFrom(a => a.Skills.Take(8)));
+
             CreateMap<Skills, SkillsViewModel>();
 
             CreateMap<OnetSkill, OnetSkillViewModel>();

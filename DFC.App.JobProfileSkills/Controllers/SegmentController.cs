@@ -75,14 +75,13 @@ namespace DFC.App.JobProfileSkills.Controllers
             logService.LogInformation($"{DocumentActionName} has been called with: {article}");
 
             var model = await skillSegmentService.GetByNameAsync(article).ConfigureAwait(false);
-
             if (model != null)
             {
                 var viewModel = mapper.Map<BodyViewModel>(model);
 
                 logService.LogInformation($"{DocumentActionName} has succeeded for: {article}");
 
-                return View(nameof(Body), viewModel);
+                return View(DocumentActionName, viewModel);
             }
 
             logService.LogWarning($"{DocumentActionName} has returned no content for: {article}");

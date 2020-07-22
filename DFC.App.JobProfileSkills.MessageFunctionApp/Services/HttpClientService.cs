@@ -110,6 +110,5 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
                 httpClient.DefaultRequestHeaders.Add(HeaderName.CorrelationId, correlationIdProvider.CorrelationId);
             }
         }
-
     }
 }

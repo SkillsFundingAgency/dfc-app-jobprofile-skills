@@ -64,7 +64,7 @@ namespace DFC.App.JobProfileSkills.SegmentService.UnitTests.SegmentServiceTests
             var exceptionResult = await Assert.ThrowsAsync<ArgumentNullException>(async () => await skillSegmentService.UpsertAsync(null).ConfigureAwait(false)).ConfigureAwait(false);
 
             // Assert
-            Assert.Equal("Value cannot be null.\r\nParameter name: skillSegmentModel", exceptionResult.Message);
+            Assert.Equal("Value cannot be null. (Parameter 'skillSegmentModel')", exceptionResult.Message);
         }
     }
 }
