@@ -1,5 +1,7 @@
 ﻿using DFC.App.JobProfileSkills.Controllers;
 using DFC.App.JobProfileSkills.Data.Contracts;
+using DFC.App.JobProfileSkills.Data.ServiceBusModels;
+using DFC.App.JobProfileSkills.SegmentService;
 using DFC.Logger.AppInsights.Contracts;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
@@ -7,14 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using System.Collections.Generic;
 using System.Net.Mime;
-using DFC.App.JobProfileSkills.Data.ServiceBusModels;
-using DFC.App.JobProfileSkills.SegmentService;
 
 namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTests
 {
     public abstract class BaseSegmentController
     {
-        public BaseSegmentController()
+        protected BaseSegmentController()
         {
             FakeLogger = A.Fake<ILogService>();
             FakeSkillSegmentService = A.Fake<ISkillSegmentService>();
@@ -24,18 +24,18 @@ namespace DFC.App.JobProfileSkills.UnitTests.ControllerTests.SegmentControllerTe
 
         public static IEnumerable<object[]> HtmlMediaTypes => new List<object[]>
         {
-            new string[] { "*/*" },
-            new string[] { MediaTypeNames.Text.Html },
+            new object[] { "*/*" },
+            new object[] { MediaTypeNames.Text.Html },
         };
 
         public static IEnumerable<object[]> InvalidMediaTypes => new List<object[]>
         {
-            new string[] { MediaTypeNames.Text.Plain },
+            new object[] { MediaTypeNames.Text.Plain },
         };
 
         public static IEnumerable<object[]> JsonMediaTypes => new List<object[]>
         {
-            new string[] { MediaTypeNames.Application.Json },
+            new object[] { MediaTypeNames.Application.Json },
         };
 
         protected ILogService FakeLogger { get; }
