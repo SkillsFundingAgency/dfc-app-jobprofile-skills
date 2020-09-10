@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace DFC.App.CareerPath.FunctionalTests.Support.Interface
+namespace DFC.App.JobProfileSkills.Tests.API.FunctionalTests.Support.Interface
 {
     internal interface IGeneralSupport
     {

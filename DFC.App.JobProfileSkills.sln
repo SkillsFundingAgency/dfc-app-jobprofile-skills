@@ -59,7 +59,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.Me
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FunctionalTests", "FunctionalTests", "{F9DCDCDE-3F8E-40F4-976F-423C06DE509B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.App.JobProfileSkills.Tests.API.FunctionalTests", "DFC.App.JobProfileSkills.Tests.API.FunctionalTests\DFC.App.JobProfileSkills.Tests.API.FunctionalTests.csproj", "{34D60805-8C95-4131-AC1A-A527ACE1AB91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.App.JobProfileSkills.Tests.API.FunctionalTests", "DFC.App.JobProfileSkills.Tests.API.FunctionalTests\DFC.App.JobProfileSkills.Tests.API.FunctionalTests.csproj", "{34D60805-8C95-4131-AC1A-A527ACE1AB91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFrameworks", "TestFrameworks", "{17E7C599-6DDF-4DEF-A261-4B4861502EE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -134,6 +136,7 @@ Global
 		{43342FB3-EB6E-40C1-B80D-0555F49CB680} = {F7B529EF-7118-45D6-A60F-A36575AF5DF4}
 		{F9DCDCDE-3F8E-40F4-976F-423C06DE509B} = {1D62F6B1-C719-4196-94B3-74544B9CD599}
 		{34D60805-8C95-4131-AC1A-A527ACE1AB91} = {F9DCDCDE-3F8E-40F4-976F-423C06DE509B}
+		{17E7C599-6DDF-4DEF-A261-4B4861502EE7} = {06BDDD2C-26B9-4506-9B05-1B2B8B584A5B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E28ABB6D-5D57-4455-A0E5-E72E77B03DC5}

@@ -1,4 +1,4 @@
-﻿namespace DFC.App.CareerPath.FunctionalTests.Model.Support
+﻿namespace DFC.App.JobProfileSkills.Tests.API.FunctionalTests.Model.Support
 {
     public class ServiceBusConfig
     {

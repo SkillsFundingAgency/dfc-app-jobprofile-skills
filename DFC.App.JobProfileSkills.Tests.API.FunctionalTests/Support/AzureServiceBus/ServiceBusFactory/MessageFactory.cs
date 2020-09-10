@@ -1,8 +1,8 @@
-﻿using DFC.App.CareerPath.FunctionalTests.Support.AzureServiceBus.ServiceBusFactory.Interface;
+﻿using DFC.App.JobProfileSkills.Tests.API.FunctionalTests.Support.AzureServiceBus.ServiceBusFactory.Interface;
 using Microsoft.Azure.ServiceBus;
 using System;
 
-namespace DFC.App.CareerPath.FunctionalTests.Support.AzureServiceBus.ServiceBusFactory
+namespace DFC.App.JobProfileSkills.Tests.API.FunctionalTests.Support.AzureServiceBus.ServiceBusFactory
 {
     public class MessageFactory : IMessageFactory
     {

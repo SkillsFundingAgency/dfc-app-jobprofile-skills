@@ -1,14 +1,14 @@
-﻿using DFC.App.CareerPath.FunctionalTests.Model.ContentType.JobProfile;
-using DFC.App.CareerPath.FunctionalTests.Model.Support;
-using DFC.App.CareerPath.FunctionalTests.Support.AzureServiceBus;
-using DFC.App.CareerPath.FunctionalTests.Support.AzureServiceBus.ServiceBusFactory;
+﻿using DFC.App.JobProfileSkills.Tests.API.FunctionalTests.Model.ContentType.JobProfile;
+using DFC.App.JobProfileSkills.Tests.API.FunctionalTests.Model.Support;
+using DFC.App.JobProfileSkills.Tests.API.FunctionalTests.Support.AzureServiceBus;
+using DFC.App.JobProfileSkills.Tests.API.FunctionalTests.Support.AzureServiceBus.ServiceBusFactory;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace DFC.App.CareerPath.FunctionalTests.Support
+namespace DFC.App.JobProfileSkills.Tests.API.FunctionalTests.Support
 {
     public class SetUpAndTearDown
     {
@@ -41,10 +41,38 @@ namespace DFC.App.CareerPath.FunctionalTests.Support
             await Task.Delay(TimeSpan.FromMinutes(this.AppSettings.DeploymentWaitInMinutes)).ConfigureAwait(true);
 
             // Generate a test job profile
+            var restriction = new Restriction()
+            {
+                Info = "This is automated information for the restriction content type",
+                Id = Guid.NewGuid().ToString(),
+                Title = "This is an automated restriction title",
+            };
+
+            var skill = new RelatedSkill()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Description = "This is an automated skill description",
+                ONetElementId = "1.A.2.b",
+                Title = "This is an automated skill title"
+            };
+
+            var socSkillsMatrix = new SocSkillsMatrixDataContentType()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Contextualised = string.Empty,
+                ONetAttributeType = "Knowledge",
+                ONetRank = 4.94,
+                Rank = 1.0,
+                RelatedSkill = new System.Collections.Generic.List<RelatedSkill>() { skill },
+                RelatedSOC = new System.Collections.Generic.List<RelatedSOC>() { },
+                Title = "This is an automated socSkillsMatrix"
+            };
+
             this.JobProfile = this.CommonAction.GetResource<JobProfileContentType>("JobProfileTemplate");
             this.JobProfile.JobProfileId = Guid.NewGuid().ToString();
             this.JobProfile.CanonicalName = this.CommonAction.RandomString(10).ToLowerInvariant();
-            this.JobProfile.CareerPathAndProgression = "This is an automated career path paragraph";
+            this.JobProfile.Restrictions.Add(restriction);
+            this.JobProfile.SocSkillsMatrixData.Add(socSkillsMatrix);
 
             // Send job profile to the service bus
             jobProfileMessageBody = this.CommonAction.ConvertObjectToByteArray(this.JobProfile);

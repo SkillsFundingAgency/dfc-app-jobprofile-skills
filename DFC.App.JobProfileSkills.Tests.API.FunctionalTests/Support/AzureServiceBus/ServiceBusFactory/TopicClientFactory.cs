@@ -1,7 +1,7 @@
-﻿using DFC.App.CareerPath.FunctionalTests.Support.AzureServiceBus.ServiceBusFactory.Interface;
+﻿using DFC.App.JobProfileSkills.Tests.API.FunctionalTests.Support.AzureServiceBus.ServiceBusFactory.Interface;
 using Microsoft.Azure.ServiceBus;
 
-namespace DFC.App.CareerPath.FunctionalTests.Support.AzureServiceBus.ServiceBusFactory
+namespace DFC.App.JobProfileSkills.Tests.API.FunctionalTests.Support.AzureServiceBus.ServiceBusFactory
 {
     public class TopicClientFactory : ITopicClientFactory
     {

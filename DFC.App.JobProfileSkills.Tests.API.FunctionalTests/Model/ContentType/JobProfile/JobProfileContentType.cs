@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DFC.App.CareerPath.FunctionalTests.Model.ContentType.JobProfile
+namespace DFC.App.JobProfileSkills.Tests.API.FunctionalTests.Model.ContentType.JobProfile
 {
     public class JobProfileContentType
     {

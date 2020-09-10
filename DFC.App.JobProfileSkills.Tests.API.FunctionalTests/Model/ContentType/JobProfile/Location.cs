@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DFC.App.CareerPath.FunctionalTests.Model.ContentType.JobProfile
+namespace DFC.App.JobProfileSkills.Tests.API.FunctionalTests.Model.ContentType.JobProfile
 {
     public class Location
     {

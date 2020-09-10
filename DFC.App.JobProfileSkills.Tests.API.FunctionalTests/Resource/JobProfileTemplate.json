@@ -7,13 +7,7 @@
   "SocLevelTwo": "53",
   "UrlName": "roofer",
   "DigitalSkillsLevel": "to be able to carry out basic tasks on a computer or hand-held device",
-  "Restrictions": [
-    {
-      "Id": "e018c44d-5fa2-470a-8763-7659a668105f",
-      "Title": "Work at height",
-      "Info": "be able to cope with working at height"
-    }
-  ],
+  "Restrictions": [],
   "OtherRequirements": "Other requirements",
   "CareerPathAndProgression": "<p>You can improve your career options with a qualification  like the Level 3 (NVQ) Diploma in Roofing Occupations. You can do  specialist skills training  in areas like <a href=\"http://www.the-nhtg.org.uk/\">heritage conservation</a>, thatching or installing solar panels.\n</p>\n<p>\nWith experience, you could become a roofing surveyor, estimating costs, dealing with contracts and working with architects. You could also become a site manager or move into technical sales. Other options include training, setting up your own business or working as a roofing consultant.\n</p>",
   "CourseKeywords": "build",
@@ -196,30 +190,7 @@
     "ApprenticeshipStandards": []
   },
   "RelatedCareersData": [],
-  "SocSkillsMatrixData": [
-    {
-      "Id": "7b248065-1351-436b-8652-691204474503",
-      "Title": "5313A-Building and Construction",
-      "Contextualised": "",
-      "ONetAttributeType": "Knowledge",
-      "Rank": 1.0,
-      "ONetRank": 4.94,
-      "RelatedSkill": [
-        {
-          "Id": "a021f464-b9fb-417f-a884-998044a25fd2",
-          "Title": "Building and Construction",
-          "ONetElementId": "2.C.3.d",
-          "Description": "knowledge of building and construction"
-        }
-      ],
-      "RelatedSOC": [
-        {
-          "Id": "763fd516-5859-4aca-b04b-80b988aefc63",
-          "SOCCode": "5313a"
-        }
-      ]
-    }
-  ],
+  "SocSkillsMatrixData": [],
   "JobProfileCategories": [
     {
       "Id": "a6a4ec95-8452-408e-9bf8-6c0ba5208db4",
