@@ -1,12 +1,13 @@
-﻿using Microsoft.Azure.ServiceBus;
+﻿using Azure.Messaging.ServiceBus;
+//using Microsoft.Azure.ServiceBus;
 
 namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
 {
     public class MessagePropertiesService : IMessagePropertiesService
     {
-        public long GetSequenceNumber(Message message)
+        public long GetSequenceNumber(ServiceBusMessage message)
         {
-            return (message?.SystemProperties?.SequenceNumber).GetValueOrDefault();
+            return (message?.;
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿using DFC.App.JobProfileSkills.Data.Enums;
+﻿using Azure.Messaging.ServiceBus;
+using DFC.App.JobProfileSkills.Data.Enums;
 using DFC.App.JobProfileSkills.MessageFunctionApp.Services;
 using DFC.Logger.AppInsights.Contracts;
-using Microsoft.Azure.ServiceBus;
+//using Microsoft.Azure.ServiceBus;
 using Microsoft.Azure.WebJobs;
 using System;
 using System.Net;
@@ -31,7 +32,7 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Functions
         }
 
         [FunctionName("SitefinityMessageHandler")]
-        public async Task Run([ServiceBusTrigger("%cms-messages-topic%", "%cms-messages-subscription%", Connection = "service-bus-connection-string")] Message sitefinityMessage)
+        public async Task Run([ServiceBusTrigger("%cms-messages-topic%", "%cms-messages-subscription%", Connection = "service-bus-connection-string")] ServiceBusMessage sitefinityMessage)
         {
             if (sitefinityMessage == null)
             {
@@ -40,9 +41,9 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Functions
 
             correlationIdProvider.CorrelationId = sitefinityMessage.CorrelationId;
 
-            sitefinityMessage.UserProperties.TryGetValue("ActionType", out var actionType);
-            sitefinityMessage.UserProperties.TryGetValue("CType", out var contentType);
-            sitefinityMessage.UserProperties.TryGetValue("Id", out var messageContentId);
+            sitefinityMessage.ApplicationProperties.TryGetValue("ActionType", out var actionType);
+            sitefinityMessage.ApplicationProperties.TryGetValue("CType", out var contentType);
+            sitefinityMessage.ApplicationProperties.TryGetValue("Id", out var messageContentId);
 
             logService.LogInformation($"{nameof(SitefinityMessageHandler)}: Received message action '{actionType}' for type '{contentType}' with Id: '{messageContentId}'");
 
