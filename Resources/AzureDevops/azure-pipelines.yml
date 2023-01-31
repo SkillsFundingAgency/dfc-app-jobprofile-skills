@@ -48,8 +48,8 @@ jobs:
       BuildPlatform: $(BuildPlatform)
       BuildConfiguration: $(BuildConfiguration)
       PublishWebApp: true
-
-#Build integration tests
+  
+  #Build integration tests
 - job: BuildIntegrationTests
   displayName: Build integration tests
   steps:
@@ -60,7 +60,7 @@ jobs:
       BuildPlatform: $(BuildPlatform)
       BuildConfiguration: $(BuildConfiguration)
 
- #Build functional Tests
+  #Build functional Tests
 - job: Buildfunctionaltests
   displayName: Build functional tests
   steps:
