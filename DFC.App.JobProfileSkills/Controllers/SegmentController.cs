@@ -145,13 +145,13 @@ namespace DFC.App.JobProfileSkills.Controllers
 
             if (jobProfileSkillSegmentModel == null)
             {
-                logService.LogWarning($"When calling {PostActionName}, JobProfileSkillSegmentModel {nameof(jobProfileSkillSegmentModel)} has returned null");
+                logService.LogInformation($"{PostActionName}. No document was passed");
                 return BadRequest();
             }
 
             if (!ModelState.IsValid)
             {
-                logService.LogWarning($"When calling {PostActionName}, the state of JobProfileSkillSegmentModel {nameof(jobProfileSkillSegmentModel)} is invalid");
+                logService.LogInformation($"{PostActionName}. Model state is invalid");
                 return BadRequest(ModelState);
             }
 
@@ -176,24 +176,28 @@ namespace DFC.App.JobProfileSkills.Controllers
 
             if (jobProfileSkillSegmentModel == null)
             {
-                logService.LogWarning($"When calling {PutActionName}, JobProfileSkillSegmentModel {nameof(jobProfileSkillSegmentModel)} has returned null");
+                logService.LogInformation($"{PutActionName}. No document was passed");
                 return BadRequest();
             }
 
             if (!ModelState.IsValid)
             {
-                logService.LogWarning($"When calling {PutActionName}, the state of JobProfileSkillSegmentModel {nameof(jobProfileSkillSegmentModel)} is invalid");
+                logService.LogInformation($"{PutActionName}. Model state is invalid");
                 return BadRequest(ModelState);
             }
 
             var existingDocument = await skillSegmentService.GetByIdAsync(jobProfileSkillSegmentModel.DocumentId).ConfigureAwait(false);
             if (existingDocument == null)
             {
+                logService.LogInformation($"{PutActionName}. Couldnt find document with Id {jobProfileSkillSegmentModel.DocumentId}");
                 return new StatusCodeResult((int)HttpStatusCode.NotFound);
             }
 
             if (jobProfileSkillSegmentModel.SequenceNumber <= existingDocument.SequenceNumber)
             {
+                logService.LogInformation($"{PutActionName}. Nothing to update as SequenceNumber of passed document " +
+                    $"{jobProfileSkillSegmentModel.SequenceNumber} is lower than SequenceNumber of persisted document " +
+                    $"{existingDocument.SequenceNumber}. ");
                 return new StatusCodeResult((int)HttpStatusCode.AlreadyReported);
             }
 
@@ -213,13 +217,13 @@ namespace DFC.App.JobProfileSkills.Controllers
 
             if (patchDigitalSkillModel == null)
             {
-                logService.LogWarning($"When calling {patchDigitalSkillModel}, PatchDigitalSkillModel {nameof(patchDigitalSkillModel)} has returned null");
+                logService.LogInformation($"{PatchDigitalSkillActionName}. No document was passed");
                 return BadRequest();
             }
 
             if (!ModelState.IsValid)
             {
-                logService.LogWarning($"When calling {patchDigitalSkillModel}, the state of PatchDigitalSkillModel {nameof(patchDigitalSkillModel)} is invalid");
+                logService.LogInformation($"{PatchDigitalSkillActionName}. Model state is invalid");
                 return BadRequest(ModelState);
             }
 
@@ -240,13 +244,13 @@ namespace DFC.App.JobProfileSkills.Controllers
 
             if (patchOnetSkillModel == null)
             {
-                logService.LogWarning($"When calling {PatchOnetSkillActionName}, PatchOnetSkillModel {nameof(patchOnetSkillModel)} has returned null");
+                logService.LogInformation($"{PatchOnetSkillActionName}. No document was passed"); 
                 return BadRequest();
             }
 
             if (!ModelState.IsValid)
             {
-                logService.LogWarning($"When calling {PatchOnetSkillActionName}, the state of PatchOnetSkillModel {nameof(patchOnetSkillModel)} is invalid");
+                logService.LogInformation($"{PatchOnetSkillActionName}. Model state is invalid");
                 return BadRequest(ModelState);
             }
 
@@ -267,13 +271,13 @@ namespace DFC.App.JobProfileSkills.Controllers
 
             if (patchContextualisedModel == null)
             {
-                logService.LogWarning($"When calling {PatchSkillsMatrixActionName}, PatchContextualisedModel {nameof(patchContextualisedModel)} has returned null");
+                logService.LogInformation($"{PatchSkillsMatrixActionName}. No document was passed");
                 return BadRequest();
             }
 
             if (!ModelState.IsValid)
             {
-                logService.LogWarning($"When calling {PatchSkillsMatrixActionName}, the state of PatchContextualisedModel {nameof(patchContextualisedModel)} is invalid");
+                logService.LogInformation($"{PatchSkillsMatrixActionName}. Model state is invalid");
                 return BadRequest(ModelState);
             }
 
