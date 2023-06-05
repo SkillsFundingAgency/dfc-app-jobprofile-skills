@@ -29,6 +29,8 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
 
         public async Task<HttpStatusCode> PostAsync(JobProfileSkillSegmentModel skillSegmentModel)
         {
+            logService.LogInformation($"{nameof(PostAsync)} has been called with JobProfileSkillSegmentModel {nameof(skillSegmentModel)}");
+
             var url = new Uri($"{segmentClientOptions?.BaseAddress}segment");
             ConfigureHttpClient();
 
@@ -48,6 +50,8 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
 
         public async Task<HttpStatusCode> PutAsync(JobProfileSkillSegmentModel skillSegmentModel)
         {
+            logService.LogInformation($"{nameof(PutAsync)} has been called with JobProfileSkillSegmentModel {nameof(skillSegmentModel)}");
+
             var url = new Uri($"{segmentClientOptions?.BaseAddress}segment");
             ConfigureHttpClient();
 
@@ -69,6 +73,8 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
         public async Task<HttpStatusCode> PatchAsync<T>(T patchModel, string patchTypeEndpoint)
             where T : BasePatchModel
         {
+            logService.LogInformation($"{nameof(PatchAsync)} has been called with patchModel {nameof(patchModel)}");
+
             var url = new Uri($"{segmentClientOptions.BaseAddress}segment/{patchModel?.JobProfileId}/{patchTypeEndpoint}");
             ConfigureHttpClient();
 
@@ -89,6 +95,8 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
 
         public async Task<HttpStatusCode> DeleteAsync(Guid id)
         {
+            logService.LogInformation($"{nameof(DeleteAsync)} has been called with id {nameof(id)}");
+
             var url = new Uri($"{segmentClientOptions?.BaseAddress}segment/{id}");
             ConfigureHttpClient();
             var response = await httpClient.DeleteAsync(url).ConfigureAwait(false);
@@ -105,8 +113,12 @@ namespace DFC.App.JobProfileSkills.MessageFunctionApp.Services
 
         private void ConfigureHttpClient()
         {
+            logService.LogInformation($"{nameof(ConfigureHttpClient)} has been called");
+
             if (!httpClient.DefaultRequestHeaders.Contains(HeaderName.CorrelationId))
             {
+                logService.LogInformation($"{nameof(ConfigureHttpClient)} does not contain {nameof(HeaderName.CorrelationId)}");
+
                 httpClient.DefaultRequestHeaders.Add(HeaderName.CorrelationId, correlationIdProvider.CorrelationId);
             }
         }
