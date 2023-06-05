@@ -145,11 +145,13 @@ namespace DFC.App.JobProfileSkills.Controllers
 
             if (jobProfileSkillSegmentModel == null)
             {
+                logService.LogWarning($"When calling {PostActionName}, JobProfileSkillSegmentModel {nameof(jobProfileSkillSegmentModel)} has returned null");
                 return BadRequest();
             }
 
             if (!ModelState.IsValid)
             {
+                logService.LogWarning($"When calling {PostActionName}, the state of JobProfileSkillSegmentModel {nameof(jobProfileSkillSegmentModel)} is invalid");
                 return BadRequest(ModelState);
             }
 
@@ -174,11 +176,13 @@ namespace DFC.App.JobProfileSkills.Controllers
 
             if (jobProfileSkillSegmentModel == null)
             {
+                logService.LogWarning($"When calling {PutActionName}, JobProfileSkillSegmentModel {nameof(jobProfileSkillSegmentModel)} has returned null");
                 return BadRequest();
             }
 
             if (!ModelState.IsValid)
             {
+                logService.LogWarning($"When calling {PutActionName}, the state of JobProfileSkillSegmentModel {nameof(jobProfileSkillSegmentModel)} is invalid");
                 return BadRequest(ModelState);
             }
 
@@ -209,11 +213,13 @@ namespace DFC.App.JobProfileSkills.Controllers
 
             if (patchDigitalSkillModel == null)
             {
+                logService.LogWarning($"When calling {patchDigitalSkillModel}, PatchDigitalSkillModel {nameof(patchDigitalSkillModel)} has returned null");
                 return BadRequest();
             }
 
             if (!ModelState.IsValid)
             {
+                logService.LogWarning($"When calling {patchDigitalSkillModel}, the state of PatchDigitalSkillModel {nameof(patchDigitalSkillModel)} is invalid");
                 return BadRequest(ModelState);
             }
 
@@ -234,11 +240,13 @@ namespace DFC.App.JobProfileSkills.Controllers
 
             if (patchOnetSkillModel == null)
             {
+                logService.LogWarning($"When calling {PatchOnetSkillActionName}, PatchOnetSkillModel {nameof(patchOnetSkillModel)} has returned null");
                 return BadRequest();
             }
 
             if (!ModelState.IsValid)
             {
+                logService.LogWarning($"When calling {PatchOnetSkillActionName}, the state of PatchOnetSkillModel {nameof(patchOnetSkillModel)} is invalid");
                 return BadRequest(ModelState);
             }
 
@@ -259,11 +267,13 @@ namespace DFC.App.JobProfileSkills.Controllers
 
             if (patchContextualisedModel == null)
             {
+                logService.LogWarning($"When calling {PatchSkillsMatrixActionName}, PatchContextualisedModel {nameof(patchContextualisedModel)} has returned null");
                 return BadRequest();
             }
 
             if (!ModelState.IsValid)
             {
+                logService.LogWarning($"When calling {PatchSkillsMatrixActionName}, the state of PatchContextualisedModel {nameof(patchContextualisedModel)} is invalid");
                 return BadRequest(ModelState);
             }
 
@@ -284,11 +294,13 @@ namespace DFC.App.JobProfileSkills.Controllers
 
             if (patchRestrictionModel == null)
             {
+                logService.LogWarning($"When calling {PatchRestrictionActionName}, PatchRestrictionModel {nameof(patchRestrictionModel)} has returned null");
                 return BadRequest();
             }
 
             if (!ModelState.IsValid)
             {
+                logService.LogWarning($"When calling {PatchRestrictionActionName}, the state of PatchRestrictionModel {nameof(patchRestrictionModel)} is invalid");
                 return BadRequest(ModelState);
             }
 
