@@ -14,6 +14,15 @@
         "appSharedStorageAccountName": {
             "value": "dfcdevappsharedstr"
         },
+        "appServiceName": {
+            "value": "dfc-foo-app-jobprofile-skills-as-ver"
+        },
+        "appServicePlanSuffix": {
+            "value": "-migrated"
+        },
+        "functionAppName": {
+            "value": "dfc-foo-app-jobprofile-skills-fa-ver"
+        },
         "cosmosDBName": {
             "value": "dfc-dev-app-sharedresources-cdb"
         },

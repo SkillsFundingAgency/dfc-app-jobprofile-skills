@@ -14,6 +14,15 @@
         "appSharedStorageAccountName": {
             "value": "__appSharedStorageAccountName__"
         },
+        "appServiceName": {
+            "value": "__AppServiceName__"
+        },
+        "appServicePlanSuffix": {
+            "value": "__AppServicePlanSuffix__"
+        },
+        "functionAppName": {
+            "value": "__FunctionAppName__"
+        },
         "aseHostingEnvironmentName": {
             "value": "__aseHostingEnvironmentName__"
         },
